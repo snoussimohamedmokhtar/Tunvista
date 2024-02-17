@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Maison{% endblock %}
+
+{% block body %}
+    <h1>Maison</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>RefB</th>
+                <td>{{ maison.refB }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ maison.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ maison.adresse }}</td>
+            </tr>
+            <tr>
+                <th>NombreChambre</th>
+                <td>{{ maison.nombreChambre }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ maison.prix }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ maison.type }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_maison_index') }}">back to list</a>
+
+    <a href="{{ path('app_maison_edit', {'refB': maison.refB}) }}">edit</a>
+
+    {{ include('maison/_delete_form.html.twig') }}
+{% endblock %}

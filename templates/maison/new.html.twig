@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Maison{% endblock %}
+
+{% block body %}
+    <h1>Create new Maison</h1>
+
+    {{ include('maison/_form.html.twig') }}
+
+    <a href="{{ path('app_maison_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Visit index{% endblock %}
+
+{% block body %}
+    <h1>Visit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Date_visite</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for visit in visits %}
+            <tr>
+                <td>{{ visit.id}}</td>
+                <td>{{ visit.Numero }}</td>
+                <td>{{ visit.nom }}</td> 
+                <td>{{ visit.email }}</td>
+                <td>{{ visit.dateVisit ? visit.dateVisit|date('Y-m-d ') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_visit_show', {'id': visit.getId()}) }}">show</a>
+                    <a href="{{ path('app_visit_edit', {'id': visit.getId()}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_visit_new') }}">Create new</a>
+{% endblock %}
