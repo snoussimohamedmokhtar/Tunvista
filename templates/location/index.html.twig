@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Location index{% endblock %}
+
+{% block body %}
+    <h1>Table Des Locations</h1>
+    <style>
+        /* Style for the link */
+        .cool-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Nature green color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s; /* Transition effect for hover */
+        }
+
+        /* Hover effect */
+        .cool-link:hover {
+            background-color: #45a049; /* Lighter green color on hover */
+        }
+    </style>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id_location</th>
+                <th>Date_debut</th>
+                <th>Date_fin</th>
+                <th>ID Client</th>
+                <th>ID Voiture</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            <tr>
+                <td>{{ location.idLocation }}</td>
+                <td>{{ location.dateDebut ? location.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ location.dateFin ? location.dateFin|date('Y-m-d') : '' }}</td>
+                <td>{{  location.getClient().getIdUser() }}</td>
+                <td>{{  location.getVoiture().getIdVoiture() }}</td>
+                <td>
+                    <a href="{{ path('app_location_show', {'id_location': location.getIdLocation()}) }}">show</a>
+                    <a href="{{ path('app_location_edit', {'id_location': location.getIdLocation()}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_location_new') }}" class="cool-link">Create new</a>
+{% endblock %}

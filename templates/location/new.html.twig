@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Location{% endblock %}
+
+{% block body %}
+    <h1>Create new Location</h1>
+    <style>
+        /* Style for the link */
+        .cool-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.72); /* Nature green color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s; /* Transition effect for hover */
+        }
+
+        /* Hover effect */
+        .cool-link:hover {
+            background-color: #a04545; /* Lighter green color on hover */
+        }
+    </style>
+
+    {{ include('location/_form.html.twig') }}
+
+    <a href="{{ path('app_location_index') }}" class="cool-link">back to list</a>
+{% endblock %}

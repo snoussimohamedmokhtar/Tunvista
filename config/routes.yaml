@@ -1,0 +1,3 @@
+#index:
+#    path: /author/{name}
+#    controller: App\Controller\AuthorController::showAuthor
