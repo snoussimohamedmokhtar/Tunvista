@@ -71,10 +71,10 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('region', EntityType::class, [
                 'class' => Region::class,
-                'placeholder' => 'Choisir une région', // Texte par défaut pour l'option de sélection
-                'choice_label' => 'nom', // Remplacez 'nom' par le nom de la propriété de l'entité Region à afficher dans la liste déroulante
+                'placeholder' => 'Choisir une région',
+                'choice_label' => 'nom',
                 'attr' => [
-                    'class' => 'form-control' // Ajoutez des attributs de classe au champ si nécessaire
+                    'class' => 'form-control'
                 ]
             ])
             ->add('ville',TextType::class,[
