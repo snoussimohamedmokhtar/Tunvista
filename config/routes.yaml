@@ -18,3 +18,11 @@ app_register:
   path: /register
   controller: 'App\Controller\RegistrationController::register'
   methods: ['GET', 'POST']
+
+admin_index:
+  path: /admin
+  controller: 'App\Controller\Admin\MainController::index'
+
+admin_users_index:
+  path: /admin/Users
+  controller: 'App\Controller\Admin\UsersController::index'
