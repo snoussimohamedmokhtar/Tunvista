@@ -26,3 +26,19 @@ admin_index:
 admin_users_index:
   path: /admin/Users
   controller: 'App\Controller\Admin\UsersController::index'
+
+
+admin_users_new:
+  path: /admin/Users/new
+  controller: 'App\Controller\Admin\UsersController::new'
+  methods: ['GET', 'POST']
+
+admin_users_edit:
+  path: /admin/Users/{id}/edit
+  controller: 'App\Controller\Admin\UsersController::edit'
+  methods: ['GET', 'POST']
+
+admin_users_delete:
+  path: /admin/Users/{id}
+  controller: 'App\Controller\Admin\UsersController::delete'
+  methods: ['POST']

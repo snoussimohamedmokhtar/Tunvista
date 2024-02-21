@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>new User</h1>
+    <!-- Navbar & Hero Start -->
+{#    {% include "_partials/navbar.html.twig" %}#}
+
+{#    <div class="container-fluid bg-primary py-5 mb-5 hero-header">#}
+{#        <div class="container py-5">#}
+{#            <div class="row justify-content-center py-5">#}
+{#                <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">#}
+{#                    <h1 class="display-3 text-white animated slideInDown">Register</h1>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+    <!-- Navbar & Hero End -->
+
+    <section class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_errors(form) }}
+
+                {{ form_start(form) }}
+                <fieldset>
+                    <legend>Identity</legend>
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.email) }}
+                </fieldset>
+
+                <fieldset>
+                    <legend>Contact details</legend>
+                    {{ form_row(form.region) }}
+                    {{ form_row(form.ville, {
+                        label: 'City'
+                    }) }}
+                    {{ form_row(form.adresse) }}
+                    {{ form_row(form.plainPassword, {
+                        label: 'Password'
+                    }) }}
+                    {{ form_row(form.agreeTerms) }}
+                </fieldset>
+
+                <button type="submit" class="btn btn-lg btn-primary mt-3">Register</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+{% endblock %}
