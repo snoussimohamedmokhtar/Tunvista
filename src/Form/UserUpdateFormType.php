@@ -6,7 +6,9 @@ use App\Entity\Region;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,8 +20,17 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
+
 class UserUpdateFormType extends AbstractType
 {
+    private RolesToJsonTransformer $rolesTransformer;
+
+    public function __construct(RolesToJsonTransformer $rolesTransformer)
+    {
+        $this->rolesTransformer = $rolesTransformer;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -117,6 +128,19 @@ class UserUpdateFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Role',
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
+                ],
+                'expanded' => false,
+                'attr' => [
+                    'class' => 'form-control', // Ajoutez les classes CSS ici si nécessaire
+                ],
+                'required' => true, // Définissez à true si le champ est obligatoire
+            ])
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -135,6 +159,8 @@ class UserUpdateFormType extends AbstractType
                 ],
             ])
         ;
+        $builder->get('roles')
+            ->addModelTransformer($this->rolesTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -142,5 +168,20 @@ class UserUpdateFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+}
+
+class RolesToJsonTransformer implements DataTransformerInterface
+{
+    public function transform($roles): string
+    {
+        // Transforme un tableau de rôles en une chaîne JSON
+        return json_encode($roles);
+    }
+
+    public function reverseTransform($jsonRoles): ?array
+    {
+        // Transforme une chaîne JSON en un tableau de rôles
+        return json_decode($jsonRoles, true) ?: [];
     }
 }

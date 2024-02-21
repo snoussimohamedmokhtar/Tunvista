@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1>Edit User</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                {{ form_start(form) }}
+                <div class="mb-3">
+                    {{ form_label(form.firstName, 'First Name') }}
+                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.firstName) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.lastName, 'Last Name') }}
+                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.lastName) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.email, 'Email') }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.email) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.region, 'Region') }}
+                    {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.region) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.ville, 'City') }}
+                    {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.ville) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.adresse, 'Address') }}
+                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.adresse) }}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.roles, 'Roles') }}
+                    {% for role in user.roles %}
+                        <span class="badge badge-secondary">{{ role }}</span>
+                    {% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form_label(form.plainPassword, 'Password') }}
+                    {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_errors(form.plainPassword) }}
+                </div>
+                <div class="mb-3 form-check">
+                    {{ form_widget(form.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(form.agreeTerms, 'Agree to Terms', {'label_attr': {'class': 'form-check-label'}}) }}
+                    {{ form_errors(form.agreeTerms) }}
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

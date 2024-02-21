@@ -58,23 +58,35 @@ class UsersController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'admin_users_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(UserFormType::class, $user);
+        // Récupérer l'utilisateur à éditer
+        $user = $entityManager->getRepository(User::class)->find($id);
+
+        // Vérifier si l'utilisateur existe
+        if (!$user) {
+            throw $this->createNotFoundException('User not found');
+        }
+
+        // Créer le formulaire et le gérer
+        $form = $this->createForm(UserUpdateFormType::class, $user);
         $form->handleRequest($request);
 
+        // Traiter le formulaire soumis
         if ($form->isSubmitted() && $form->isValid()) {
+            // Enregistrer les modifications dans la base de données
             $entityManager->flush();
 
+            // Rediriger vers la liste des utilisateurs après édition
             return $this->redirectToRoute('admin_users_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        // Rendre le formulaire et la vue d'édition
         return $this->renderForm('admin/users/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'admin_users_delete', methods: ['POST'])]
     public function delete(Request $request, int $id, EntityManagerInterface $entityManager): Response
     {
