@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.NumPass) }}
+        {{ form_widget(form.NumPass, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.Nom) }}
+        {{ form_widget(form.Nom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.Prenom) }}
+        {{ form_widget(form.Prenom, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.Age) }}
+        {{ form_widget(form.Age, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.EtatCivil) }}
+        {{ form_widget(form.EtatCivil, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button type="submit" class="btn btn-success btn-block mt-3">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

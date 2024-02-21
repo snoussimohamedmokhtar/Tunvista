@@ -1,0 +1,42 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Voyageur{% endblock %}
+
+{% block body %}
+    <h1>Voyageur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ voyageur.id }}</td>
+            </tr>
+            <tr>
+                <th>NumPass</th>
+                <td>{{ voyageur.NumPass }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ voyageur.Nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ voyageur.Prenom }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ voyageur.Age }}</td>
+            </tr>
+            <tr>
+                <th>EtatCivil</th>
+                <td>{{ voyageur.EtatCivil }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_voyageur_index') }}">back to list</a>
+
+    <a href="{{ path('app_voyageur_edit', {'id': voyageur.id}) }}">edit</a>
+
+    {{ include('voyageur/_delete_form.html.twig') }}
+{% endblock %}
