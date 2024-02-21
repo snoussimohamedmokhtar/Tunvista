@@ -1,5 +1,33 @@
 {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
-    {{ form_widget(form) }}
+    <div class="mb-3">
+{{ form_label(form.nom, 'Nom') }}
+{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+<div class="text-danger">{{ form_errors(form.nom) }}</div>
+
+
+    {{ form_label(form.adresse, 'adresse') }}
+    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+    
+
+    {{ form_label(form.nombreChambre, 'nombreChambre') }}
+    {{ form_widget(form.nombreChambre, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.nombreChambre) }}</div>
+  
+    
+        {{ form_label(form.prix, 'prix') }}
+        {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+        <div class="text-danger">{{ form_errors(form.prix) }}</div>
+       
+     
+            {{ form_label(form.type, 'type') }}
+            {{ form_widget(form.type ,{'attr': {'class': 'form-control'}}) }}
+            <div class="text-danger">{{ form_errors(form.type) }}</div>
+          
+          
+                {{ form_label(form.image, 'image') }}
+                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                
+                </div>
 
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

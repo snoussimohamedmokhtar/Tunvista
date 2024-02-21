@@ -24,10 +24,10 @@
                 <th>Email</th>
                 <td>{{ visit.email }}</td>
             </tr>
-            <tr>
-                <th>Date_visite</th>
-                <td>{{ visit.dateVisit }}</td>
-            </tr>
+            <th>Date_visite</th>
+            <td>{{ visit.dateVisit | date('Y-m-d ') }}</td>
+
+        </tr>
         </tbody>
     </table>
 

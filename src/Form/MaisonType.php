@@ -8,17 +8,28 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class MaisonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', null, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                ],
-            ])
+    
+                    ->add('nom', null, [
+                        'required' => false,
+                        'constraints' => [
+                            new NotBlank([
+                                
+                                'message' => 'Veuillez saisir un nom.'
+                            ]), 
+                            new Regex([
+                                'pattern' => '/^[a-zA-Z]+$/',
+                                'message' => 'Le nom doit contenir uniquement des lettres.']),           
+                        ],  
+                    ])
             ->add('adresse', ChoiceType::class, [
                 'choices' => [
                     'Ariana' => 'Ariana',
@@ -67,6 +78,13 @@ class MaisonType extends AbstractType
                     'Appartement' => 'Appartement',
                     'Studio' => 'Studio',
                 ],
+            ])
+    
+            ->add('image',FileType::class,[
+                'label' => 'image',
+                'mapped' => false,
+                'required' => false,
+                
             ])
         ;
     }

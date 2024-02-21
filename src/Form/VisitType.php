@@ -9,6 +9,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\Length;
 
 class VisitType extends AbstractType
 {
@@ -16,6 +19,7 @@ class VisitType extends AbstractType
     {
         $builder
             
+
 
         ->add('dateVisit', DateType::class, [
             'widget' => 'single_text',
@@ -25,17 +29,26 @@ class VisitType extends AbstractType
                 new GreaterThan("today")
             ]
         ])
-            ->add('Numero', null, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    new Assert\Type(['type' => 'numeric']),
-                ],
-            ])
-            ->add('nom', null, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                ],
-            ])
+        ->add('Numero', null, [
+            'constraints' => [
+                new Assert\NotBlank(),
+                new Assert\Type(['type' => 'numeric']),
+                new Assert\Length(['max' => 255,
+                'message' => 'Le numero doit contenir 8 chiffre.']),
+            ],
+        ])
+        ->add('nom', null, [
+            'required' => false,
+            'constraints' => [
+                new NotBlank([
+                    
+                    'message' => 'Veuillez saisir un nom.'
+                ]), 
+                new Regex([
+                    'pattern' => '/^[a-zA-Z]+$/',
+                    'message' => 'Le nom doit contenir uniquement des lettres.']),           
+            ],  
+        ])
             ->add('email', null, [
                 'constraints' => [
                     new Assert\NotBlank(),

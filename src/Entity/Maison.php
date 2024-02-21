@@ -34,6 +34,9 @@ class Maison
 
     #[ORM\OneToMany(mappedBy: 'refB', targetEntity: Visit::class)]
     private Collection $visits;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
     
 
     public function __construct()
@@ -142,5 +145,17 @@ class Maison
     }
     public function __toString() {
         return  $this->nom. ' ' . $this->adresse. ' '.$this->nombreChambre .' ('.$this->prix.' )';
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

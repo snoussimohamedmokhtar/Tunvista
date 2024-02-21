@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <div id="google_translate_element"></div>
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Maisons</h4>
+            </div>
+            <div class="row">
+                {% for maison in maisons %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item">
+                            <img src="{{ asset('uploads/' ~ maison.image)}}" style="width:360px; height:250px;" alt="">
+                            <center><h2>{{ maison.nom }}</h2></center>
+                            <p><strong style="color:#696969">Type:</strong> {{ maison.type }}</p>
+                            <p><strong style="color:#696969">Adresse:</strong> {{ maison.adresse }}</p>
+                            <p><strong style="color:#696969">Nombre de Chambres:</strong> {{ maison.nombreChambre }}</p>
+                            <p><strong style="color:#696969">Prix:</strong> {{ maison.prix }}</p>
+                            
+                                <center><a href="{{ path('app_visit_new', {'refB': maison.refB}) }}" class="btn btn-primary">Planifier une Visite</a></center>
+                          
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+             
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+    
+{% endblock %}

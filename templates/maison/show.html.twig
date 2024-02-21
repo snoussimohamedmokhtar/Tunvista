@@ -31,7 +31,16 @@
                 <th>Type</th>
                 <td>{{ maison.type }}</td>
             </tr>
+            <tr>
+                <th>Image</th>
+                <td> {% if maison.image %}
+                    <img src="{{ asset('/uploads/' ~ maison.image) }}"  style="max-width: 100px; max-height: 100px;">
+                {% else %}
+                    Aucune image disponible
+                {% endif %}</td>
+            </tr>
         </tbody>
+
     </table>
 
     <a href="{{ path('app_maison_index') }}">back to list</a>
