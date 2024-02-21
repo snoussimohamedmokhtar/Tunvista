@@ -16,13 +16,13 @@ class Evenement
     private ?int $id_evenement = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_debut = null;
+    private ?\DateTimeInterface $date_deb = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_fin = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private ?string $type_e = null;
 
     public function getIdEvenement(): ?int
     {
@@ -36,14 +36,14 @@ class Evenement
         return $this;
     }
 
-    public function getDateDebut(): ?\DateTimeInterface
+    public function getDateDeb(): ?\DateTimeInterface
     {
-        return $this->date_debut;
+        return $this->date_deb;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): static
+    public function setDateDeb(\DateTimeInterface $date_deb): static
     {
-        $this->date_debut = $date_debut;
+        $this->date_deb = $date_deb;
 
         return $this;
     }
@@ -60,14 +60,14 @@ class Evenement
         return $this;
     }
 
-    public function getType(): ?string
+    public function getTypeE(): ?string
     {
-        return $this->type;
+        return $this->type_e;
     }
 
-    public function setType(string $type): static
+    public function setTypeE(string $type_e): static
     {
-        $this->type = $type;
+        $this->type_e = $type_e;
 
         return $this;
     }

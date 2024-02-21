@@ -19,9 +19,9 @@
         {% for evenement in evenements %}
             <tr>
                 <td>{{ evenement.getIdEvenement() }}</td>
-                <td>{{ evenement.dateDebut ? evenement.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.dateFin ? evenement.dateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.type }}</td>
+                <td>{{ evenement.getDateDeb ? evenement.getDateDeb|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.getDateFin ? evenement.getDateFin|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.getTypeE }}</td>
                 <td>
                     <a href="{{ path('app_evenement_show', {'id_evenement': evenement.getIdEvenement()}) }}">show</a>
                     <a href="{{ path('app_evenement_edit', {'id_evenement': evenement.getIdEvenement()}) }}">edit</a>

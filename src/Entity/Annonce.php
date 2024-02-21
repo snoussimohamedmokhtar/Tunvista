@@ -18,7 +18,7 @@ class Annonce
     private ?\DateTimeInterface $date_debut = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private ?string $type_a = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id_user')]
@@ -52,14 +52,14 @@ class Annonce
         return $this;
     }
 
-    public function getType(): ?string
+    public function getTypeA(): ?string
     {
-        return $this->type;
+        return $this->type_a;
     }
 
-    public function setType(string $type): static
+    public function setTypeA(string $type_a): static
     {
-        $this->type = $type;
+        $this->type_a = $type_a;
 
         return $this;
     }

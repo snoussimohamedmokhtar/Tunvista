@@ -18,8 +18,8 @@
         {% for annonce in annonces %}
             <tr>
                 <td>{{ annonce.getIdAnnonce() }}</td>
-                <td>{{ annonce.dateDebut ? annonce.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ annonce.type }}</td>
+                <td>{{ annonce.getDateDebut ? annonce.getDateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ annonce.getTypeA }}</td>
                 <td>
                     <a href="{{ path('app_annonce_show', {'id_annonce': annonce.getIdAnnonce()}) }}">show</a>
                     <a href="{{ path('app_annonce_edit', {'id_annonce': annonce.getIdAnnonce()}) }}">edit</a>
