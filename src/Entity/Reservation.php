@@ -35,6 +35,18 @@ class Reservation
     #[ORM\JoinColumn(name: 'idH', referencedColumnName: 'id_h', nullable: false)]
     private ?Hotel $idH = null;
 
+    #[ORM\Column]
+    private ?int $nbreChambre = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $typeChambre = null;
+
+    #[ORM\Column]
+    private ?int $nbreAdulte = null;
+
+    #[ORM\Column]
+    private ?int $nbreEnfant = null;
+
     public function getIdR(): ?int
     {
         return $this->idR;
@@ -112,6 +124,54 @@ class Reservation
     public function setIdH(?Hotel $idH): static
     {
         $this->idH = $idH;
+
+        return $this;
+    }
+
+    public function getNbreChambre(): ?int
+    {
+        return $this->nbreChambre;
+    }
+
+    public function setNbreChambre(int $nbreChambre): static
+    {
+        $this->nbreChambre = $nbreChambre;
+
+        return $this;
+    }
+
+    public function getTypeChambre(): ?string
+    {
+        return $this->typeChambre;
+    }
+
+    public function setTypeChambre(string $typeChambre): static
+    {
+        $this->typeChambre = $typeChambre;
+
+        return $this;
+    }
+
+    public function getNbreAdulte(): ?int
+    {
+        return $this->nbreAdulte;
+    }
+
+    public function setNbreAdulte(int $nbreAdulte): static
+    {
+        $this->nbreAdulte = $nbreAdulte;
+
+        return $this;
+    }
+
+    public function getNbreEnfant(): ?int
+    {
+        return $this->nbreEnfant;
+    }
+
+    public function setNbreEnfant(int $nbreEnfant): static
+    {
+        $this->nbreEnfant = $nbreEnfant;
 
         return $this;
     }

@@ -9,8 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
-
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
 class Hotel
 {
@@ -20,7 +18,6 @@ class Hotel
     private ?int $idH = null;
 
     #[ORM\Column(length: 255)]
-   /* #[Assert\NotBlank(message: "vous devez mettre le nom d'hotel!!!")]*/
     private ?string $Nom_hotel = null;
 
     #[ORM\Column]

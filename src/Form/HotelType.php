@@ -10,26 +10,28 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class HotelType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Nom_hotel', null, [
-                'constraints' => [
-                    new Assert\NotBlank(),
-                    /*new Assert\Length(
-                          'maxSize' => '255',
-                          maxMessage="Le nom ne peut pas dépasser {{ limit }} caractères"
-                        )*/
-                       
-                            
-                                
-                               
-                ],
-            ])
+        ->add('Nom_hotel', null, [
+            'required' => false,
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez saisir un nom.'
+                ]),
+                new Length(['min' => 3]),
+                new Regex([
+                    'pattern' => '/^[a-zA-Z]+$/',
+                    'message' => 'Le nom doit contenir uniquement des lettres.']),
+            ],
+        ])
             ->add('Nbre_etoile', null, [
                 'constraints' => [
                     new Assert\NotBlank(),

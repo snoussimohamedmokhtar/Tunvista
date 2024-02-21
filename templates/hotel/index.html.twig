@@ -4,7 +4,17 @@
 
 {% block body %}
     <h1>Hotel</h1>
+    <div class="search-bar">
+        <form action="{{ path('app_search_hotel') }}" method="get">
+            <input type="text" name="NomHotel" placeholder="Enter Nom_hotel">
+            <button type="submit">Search</button>
+        </form>
+    </div>
 
+    <div class="sort-bar">
+        <a href="{{ path('app_trieasc', {'criteria': 'prixNuit', 'order': 'asc'}) }}">Sort by Price (Asc)</a>
+        <a href="{{ path('app_triedesc', {'criteria': 'prixNuit', 'order': 'desc'}) }}">Sort by Price (Desc)</a>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -25,16 +35,17 @@
                 <td>{{ hotel.NbreEtoile }}</td>
                 <td>{{ hotel.AdresseHotel }}</td>
                 <td>{{ hotel.prixNuit }}</td>
-                 <td>{{ hotel.image }}</td>
+                <td>{{ hotel.image }}</td>
                 <td>
-                    <a href="{{ path('app_hotel_show', {'idH': hotel.idH}) }}">show</a>
-                    <a href="{{ path('app_hotel_edit', {'idH': hotel.idH}) }}">edit</a>
+                    <a href="{{ path('app_hotel_show', {'idH': hotel.idH}) }}"><i class="fa fa-eye"></i> show</a>
+                    <a href="{{ path('app_hotel_edit', {'idH': hotel.idH}) }}"><i class="fa fa-edit"></i> edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
                 <td colspan="6">no records found</td>
             </tr>
+
         {% endfor %}
         </tbody>
     </table>

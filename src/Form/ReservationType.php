@@ -39,12 +39,36 @@ class ReservationType extends AbstractType
             
             ->add('TypeR' , ChoiceType::class, [
                 'choices' => [
+                    'pension complete' => 'pension complete',
+                    'demi-pension' => 'demi-pension',
+                    'petitdej' => 'petitdej',
+                ]])
+
+            ->add('prix_total', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Type(['type' => 'numeric']),
+                ],
+            ])
+            ->add('nbreChambre', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Type(['type' => 'numeric']),
+                ],
+            ])
+            ->add('typeChambre', ChoiceType::class, [
+                'choices' => [
                     'simple' => 'simple',
                     'double' => 'double',
                     'suite' => 'suite',
                 ]])
-
-            ->add('prix_total', null, [
+            ->add('nbreAdulte', null, [
+                'constraints' => [
+                    new Assert\NotBlank(),
+                    new Assert\Type(['type' => 'numeric']),
+                ],
+            ])
+            ->add('nbreEnfant', null, [
                 'constraints' => [
                     new Assert\NotBlank(),
                     new Assert\Type(['type' => 'numeric']),

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Reservation index{% endblock %}
+{% block title %}Reservation {% endblock %}
 
 {% block body %}
-    <h1>Reservation index</h1>
+    <h1>Reservation </h1>
 
     <table class="table">
         <thead>
@@ -13,18 +13,25 @@
                 <th>Date_depart</th>
                 <th>TypeR</th>
                 <th>Prix_total</th>
+                <th>nbreChambre</th>
+                <th>typeChambre</th>
+                <th>nbreAdulte</th>
+                <th>nbreEnfant</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for reservation in reservations %}
             <tr>
-                <td>{{ reservation.idR }}</td>
                 <td>{{ reservation.IdClient }}</td>
                 <td>{{ reservation.DateArrivee ? reservation.DateArrivee|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation.DateDepart ? reservation.DateDepart|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation.TypeR }}</td>
                 <td>{{ reservation.prixTotal }}</td>
+                <td>{{ reservation.nbreChambre }}</td>
+                <td>{{ reservation.typeChambre }}</td>
+                <td>{{ reservation.nbreAdulte }}</td>
+                <td>{{ reservation.nbreEnfant }}</td>
                 <td>
                     <a href="{{ path('app_reservation_show', {'idR': reservation.idR}) }}">show</a>
                     <a href="{{ path('app_reservation_edit', {'idR': reservation.idR}) }}">edit</a>
