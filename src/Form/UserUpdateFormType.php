@@ -128,18 +128,18 @@ class UserUpdateFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('roles', ChoiceType::class, [
-                'label' => 'Role',
-                'choices' => [
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER',
-                ],
-                'expanded' => false,
-                'attr' => [
-                    'class' => 'form-control', // Ajoutez les classes CSS ici si nécessaire
-                ],
-                'required' => true, // Définissez à true si le champ est obligatoire
-            ])
+//            ->add('roles', ChoiceType::class, [
+//                'label' => 'Role',
+//                'choices' => [
+//                    'Admin' => 'ROLE_ADMIN',
+//                    'User' => 'ROLE_USER',
+//                ],
+//                'expanded' => false,
+//                'attr' => [
+//                    'class' => 'form-control', // Ajoutez les classes CSS ici si nécessaire
+//                ],
+//                'required' => true, // Définissez à true si le champ est obligatoire
+//            ])
 
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -159,8 +159,8 @@ class UserUpdateFormType extends AbstractType
                 ],
             ])
         ;
-        $builder->get('roles')
-            ->addModelTransformer($this->rolesTransformer);
+//        $builder->get('roles')
+//            ->addModelTransformer($this->rolesTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
