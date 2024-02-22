@@ -16,11 +16,11 @@ class AnnonceType extends AbstractType
             ->add('date_debut')
             ->add('type_a')
             ->add('user')
-            ->add('picture', type: FileType::class, options: [
+            /*->add('picture', type: FileType::class, options: [
                 'label' => 'Picture :',
                 'mapped' => false,
                 'required' => false,
-            ]);
+            ]);*/
         ;
     }
 

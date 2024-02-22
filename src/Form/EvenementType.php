@@ -15,12 +15,12 @@ class EvenementType extends AbstractType
         $builder
             ->add('date_deb')
             ->add('date_fin')
-            ->add('type_e')
-            ->add('picture', type: FileType::class, options: [
+            ->add('type_e');
+            /*->add('picture', type: FileType::class, options: [
                 'label' => 'Picture :',
                 'mapped' => false,
                 'required' => false,
-            ]);
+            ]);*/
 
     }
 
