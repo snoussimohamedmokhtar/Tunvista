@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\VoyageurRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: VoyageurRepository::class)]
 class Voyageur
 {
@@ -14,15 +14,23 @@ class Voyageur
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 6)]
     private ?int $NumPass = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 10)]
     private ?string $Nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 15)]
     private ?string $Prenom = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 2)]
     private ?int $Age = null;
 
     #[ORM\Column(length: 255)]

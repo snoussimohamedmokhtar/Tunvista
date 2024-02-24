@@ -14,15 +14,15 @@ class VoyageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('Programme', TextareaType::class, [
-            'attr' => ['rows' => 3], // Adjust rows as needed
-        ])           
-        ->add('DateDepart', DateType::class, [
-            'widget' => 'single_text',
-        ])
-        ->add('DateArrive', DateType::class, [
-            'widget' => 'single_text',
-        ])
+            ->add('Programme', TextareaType::class, [
+                'attr' => ['rows' => 3], // Adjust rows as needed
+            ])
+            ->add('DateDepart', DateType::class, [
+                'widget' => 'single_text',
+            ])
+            ->add('DateArrive', DateType::class, [
+                'widget' => 'single_text',
+            ])
             ->add('Prix')
         ;
     }

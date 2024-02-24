@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: VoyageRepository::class)]
 class Voyage
@@ -17,6 +19,8 @@ class Voyage
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 20)]
     private ?string $Programme = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -26,6 +30,8 @@ class Voyage
     private ?\DateTimeInterface $DateArrive = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 4,maxMessage: 'Your first name cannot be longer than {{ limit }} characters')]
     private ?string $Prix = null;
 
     #[ORM\OneToMany(targetEntity: Voyageur::class, mappedBy: 'voyage')]
@@ -89,33 +95,4 @@ class Voyage
         return $this;
     }
 
-    // /**
-    //  * @return Collection<int, Voyageur>
-    //  */
-    // public function getVoyagee(): Collection
-    // {
-    //     return $this->Voyagee;
-    // }
-
-    // public function addVoyagee(Voyageur $voyagee): static
-    // {
-    //     if (!$this->Voyagee->contains($voyagee)) {
-    //         $this->Voyagee->add($voyagee);
-    //         $voyagee->setVoyage($this);
-    //     }
-
-    //     return $this;
-    // }
-
-    // public function removeVoyagee(Voyageur $voyagee): static
-    // {
-    //     if ($this->Voyagee->removeElement($voyagee)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($voyagee->getVoyage() === $this) {
-    //             $voyagee->setVoyage(null);
-    //         }
-    //     }
-
-    //     return $this;
-    // }
 }

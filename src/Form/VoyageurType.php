@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 class VoyageurType extends AbstractType
@@ -16,10 +16,25 @@ class VoyageurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('NumPass')
+            ->add('NumPass', TextType::class, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^\d+$/',
+                        'message' => 'Le champ NumPass doit contenir uniquement des chiffres.'
+                    ])
+                ]
+            ])
+
             ->add('Nom', TextType::class) 
             ->add('Prenom', TextType::class)
-            ->add('Age')
+            ->add('Age',TextType::class, [
+                'constraints' => [
+                    new Assert\Regex([
+                        'pattern' => '/^\d+$/',
+                        'message' => 'Le champ NumPass doit contenir uniquement des chiffres.'
+                    ])
+                ]
+            ])
             ->add('EtatCivil', ChoiceType::class, [
                 'choices' => [
                     'Single' => 'Single',
