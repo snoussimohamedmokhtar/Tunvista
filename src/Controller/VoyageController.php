@@ -79,12 +79,12 @@ class VoyageController extends AbstractController
         return $this->redirectToRoute('app_voyage_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    
+
 //    #[Route('/statistique', name: 'app_voyage_statistique', methods: ['GET'])]
 //     public function statistique(VoyageRepository $voyageRepository): Response
 //     {
 //         $statistics = $voyageRepository->findStatistics();
-        
+
 //         return $this->render('voyage/stat.html.twig', [
 //             'statistics' => $statistics,
 //         ]);
