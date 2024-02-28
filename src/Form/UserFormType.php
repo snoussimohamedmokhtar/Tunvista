@@ -126,13 +126,13 @@ class UserFormType extends AbstractType
                     'autocomplete' => 'new-password',
                     'class' => 'form-control'
                 ],
-
-                'constraints' => [
-                    new Regex('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$~',
-                        "Password should be Minimum eight in length One Upper case, one lower case, one digit, one special character"
-
-                    ),
-                ],
+//
+//                'constraints' => [
+//                    new Regex('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$~',
+//                        "Password should be Minimum eight in length One Upper case, one lower case, one digit, one special character"
+//
+//                    ),
+//                ],
             ])
         ;
     }

@@ -20,13 +20,52 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class UsersController extends AbstractController
 {
 
+//    #[Route('/', name: 'index')]
+//    public function index(UserRepository $userRepository): Response
+//    {
+//        $users = $userRepository->findBy([], [
+//            'firstName' => 'asc'
+//        ]);
+//        return $this->render('admin/users/index.html.twig', compact('users'));
+//    }
+
     #[Route('/', name: 'index')]
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository): Response
     {
-        $users = $userRepository->findBy([], [
-            'firstName' => 'asc'
+        // Récupérer le paramètre de tri de la requête
+        $sortBy = $request->query->get('sortBy', 'firstName');
+
+        // Vérifier si la valeur passée dans $sortBy est valide
+        $validSortOptions = ['firstName', 'lastName', 'email', 'id', 'adresse', 'region', 'ville'];
+        if (!in_array($sortBy, $validSortOptions)) {
+            throw $this->createNotFoundException('Invalid sort option.');
+        }
+
+        // Récupérer la direction de tri de la requête (ascendant ou descendant)
+        $sortDirection = $request->query->get('sortDirection', 'asc');
+
+        // Vérifier si la direction de tri est valide
+        $validSortDirections = ['asc', 'desc'];
+        if (!in_array($sortDirection, $validSortDirections)) {
+            throw $this->createNotFoundException('Invalid sort direction.');
+        }
+
+
+        // Récupérer les données du formulaire de recherche
+        $query = $request->request->get('query');
+
+        // Utiliser le repository pour obtenir les utilisateurs triés et filtrés
+        $users = $userRepository->findBySearchQuery($query, $sortBy, $sortDirection);
+
+//        // Utiliser le repository pour obtenir les utilisateurs triés
+//        $users = $userRepository->findBy([], [
+//            $sortBy => $sortDirection,
+//        ]);
+
+        // Rendre la vue avec les utilisateurs triés
+        return $this->render('admin/users/index.html.twig', [
+            'users' => $users,
         ]);
-        return $this->render('admin/users/index.html.twig', compact('users'));
     }
 
     #[Route('/new', name: 'admin_users_new', methods: ['GET', 'POST'])]
@@ -106,4 +145,6 @@ class UsersController extends AbstractController
 
         return $this->redirectToRoute('admin_users_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
 }

@@ -112,8 +112,9 @@
 
             <div class="search-bar">
                 <form class="search-form d-flex align-items-center" method="POST" action="#">
-                    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+                    <input type="text" name="query" placeholder="Search By First Name" title="Enter search keyword">
                     <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+
                 </form>
             </div><!-- End Search Bar -->
 
@@ -126,7 +127,7 @@
             <ul class="sidebar-nav" id="sidebar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link " href="index.html">
+                    <a class="nav-link" href="{{ path('admin_index') }}">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
@@ -157,16 +158,74 @@
                     <main class="col-14 border border-light bg-white p-2">
                         <h1>List of users</h1>
                         <a href="{{ path('admin_users_new') }}" class=" btn btn-lg btn-primary ">Add User</a>
+
                         <table class="table table-striped">
                             <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">E-mail</th>
-                                <th scope="col">First Name</th>
-                                <th scope="col">Last Name</th>
-                                <th scope="col">Adresse</th>
-                                <th scope="col">Region</th>
-                                <th scope="col">Ville</th>
+                                <th scope="col">
+                                    ID
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'id'}) }}">
+                                        <span class="bi bi-sort-numeric-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'id', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-numeric-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+
+                                <th scope="col">
+                                    E-mail
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'email'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'email', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    First Name
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'firstName'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'firstName', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Last Name
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'lastName'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'lastName', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Adresse
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'adresse'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'adresse', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Region
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'region'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'region', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
+                                <th scope="col">
+                                    Ville
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'ville'}) }}">
+                                        <span class="bi bi-sort-alpha-up"></span> <!-- Icon for ascending order -->
+                                    </a>
+                                    <a href="{{ path('admin_users_index', {'sortBy': 'ville', 'sortDirection': 'desc'}) }}">
+                                        <span class="bi bi-sort-alpha-down"></span> <!-- Icon for descending order -->
+                                    </a>
+                                </th>
                                 <th scope="col">Roles</th>
                                 <th scope="col">Actions</th>
                             </tr>
