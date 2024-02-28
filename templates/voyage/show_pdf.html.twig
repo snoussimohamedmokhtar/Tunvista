@@ -1,0 +1,34 @@
+{% block title %}VOYAGE{% endblock %}
+
+{% block body %}
+    <main id="main" class="main">
+        <h1></h1>
+
+        <table class="table">
+            <tbody>
+
+            <tr>
+                <th>Programme :</th>
+                <td>{{ voyage.programme }}</td>
+            </tr>
+
+            <tr>
+                <th>Date depart:</th>
+                <td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
+            </tr>
+
+            <tr>
+                <th>Date arrive :</th>
+                <td>{{ voyage.DateArrive ? voyage.DateArrive|date('Y-m-d') : '' }}</td>
+            </tr>
+
+
+            <tr>
+                <th>Prix :</th>
+                <td>{{ voyage.prix }} $</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

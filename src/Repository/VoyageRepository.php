@@ -20,6 +20,30 @@ class VoyageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Voyage::class);
     }
+    /**
+     * Search babies by query.
+     *
+     * @param string|null $query
+     * @return Voyage[] Returns an array of Baby objects
+     */
+    public function findBySearchQuery(?string $query): array
+    {
+        if (!$query) {
+            return $this->findAll();
+        }
+
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.Programme LIKE :query OR b.Prix LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
+//sdsdsdsddddddddddsdsdsdsddddddddddddddddddddddddddddddd
+
+
+
+
+
 
 //    /**
 //     * @return Voyage[] Returns an array of Voyage objects
