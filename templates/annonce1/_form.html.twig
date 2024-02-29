@@ -1,4 +1,23 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'form-horizontal', 'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.date_debut) }}
+    {{ form_widget(form.date_debut) }}
+    <div class="text-danger">{{ form_errors(form.date_debut) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.type_a) }}
+    {{ form_widget(form.type_a) }}
+    <div class="text-danger">{{ form_errors(form.type_a) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.user) }}
+    {{ form_widget(form.user) }}
+    <div class="text-danger">{{ form_errors(form.user) }}</div>
+</div>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

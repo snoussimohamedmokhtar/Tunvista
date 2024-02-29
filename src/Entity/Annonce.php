@@ -18,6 +18,7 @@ class Annonce
     private ?\DateTimeInterface $date_debut = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Notblank(message:' should not be empty')]
     private ?string $type_a = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]

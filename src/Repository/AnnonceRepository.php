@@ -21,6 +21,26 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
+    // AnnonceRepository.php
+    public function findBySearchTermAndType($searchTerm, $type)
+    {
+        $queryBuilder = $this->createQueryBuilder('a');
+
+        if (!empty($searchTerm)) {
+            $queryBuilder->andWhere('a.type_a LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        if (!empty($type)) {
+            $queryBuilder->andWhere('a.type_a = :type')
+                ->setParameter('type', $type);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
+
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects
 //     */

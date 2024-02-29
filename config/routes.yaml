@@ -1,3 +1,7 @@
 #index:
 #    path: /author/{name}
 #    controller: App\Controller\AuthorController::showAuthor
+app_annonce_tri:
+  path: /tri
+  controller: App\Controller\AnnonceController::sortedList
+  methods: ['GET', 'POST']
