@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use TCPDF;
 
 #[Route('/admin/Users',name:'admin_users_')]
 class UsersController extends AbstractController
@@ -67,6 +68,75 @@ class UsersController extends AbstractController
             'users' => $users,
         ]);
     }
+
+    #[Route('/pdf', name: 'pdf')]
+    public function generatePdf(): Response
+    {
+        // Récupérer les données des locations
+        $users = $this->getDoctrine()->getRepository(User::class)->findAll();
+
+        // Créer un nouvel objet TCPDF
+        $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
+
+        // Définir le titre du document
+        $pdf->SetTitle('Tunvista - Tableau Des Users');
+
+        // Ajouter une page
+        $pdf->AddPage();
+
+        // Ajouter une image
+        $image_file = 'img/Logo_ESPRIT_Ariana.jpg';
+        $pdf->Image($image_file, 10, 10, 50, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+
+        // Ajouter un titre coloré
+        $pdf->SetFont('helvetica', 'B', 20);
+        $pdf->SetTextColor(255, 0, 0); // Couleur rouge
+        $pdf->Cell(0, 10, 'Tunvista', 0, true, 'C');
+
+        // Ajouter un sous-titre
+        $pdf->SetFont('helvetica', 'B', 16);
+        $pdf->SetTextColor(0, 0, 0); // Couleur noire
+        $pdf->Cell(0, 10, 'Tableau Des Users', 0, true, 'C');
+
+        // Initialiser $html en tant que tableau
+        $html = [];
+
+        // Créer le tableau des locations
+        $html[] = '<table border="1" cellpadding="5" cellspacing="0">';
+        $html[] = '<tr>';
+        $html[] = '<th>ID</th>';
+        $html[] = '<th>Email</th>';
+        $html[] = '<th>Roles</th>';
+        $html[] = '<th>Prénom</th>';
+        $html[] = '<th>Nom</th>';
+        $html[] = '<th>Adresse</th>';
+        $html[] = '<th>Région</th>';
+        $html[] = '<th>Ville</th>';
+        $html[] = '</tr>';
+        foreach ($users as $user) {
+            $html[] = '<tr>';
+            $html[] = '<td>' . $user->getId() . '</td>';
+            $html[] = '<td>' . $user->getEmail() . '</td>';
+            $html[] = '<td>' . implode(', ', $user->getRoles()) . '</td>';
+            $html[] = '<td>' . $user->getFirstName() . '</td>';
+            $html[] = '<td>' . $user->getLastName() . '</td>';
+            $html[] = '<td>' . $user->getAdresse() . '</td>';
+            $html[] = '<td>' . ($user->getRegion() ? $user->getRegion()->getNom() : '') . '</td>'; // Assurez-vous que Region a une méthode getName()
+            $html[] = '<td>' . $user->getVille() . '</td>';
+            $html[] = '</tr>';
+        }
+        $html[] = '</table>';
+
+        // Écrire le contenu HTML dans le PDF
+        $pdf->writeHTML(implode('', $html), true, false, true, false, '');
+
+        // Envoyer le PDF en réponse
+        return new Response($pdf->Output('tableau_Users.pdf', 'I'), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="tableau_Users.pdf"',
+        ]);
+    }
+
 
     #[Route('/new', name: 'admin_users_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response

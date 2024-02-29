@@ -42,3 +42,8 @@ admin_users_delete:
   path: /admin/Users/{id}
   controller: 'App\Controller\Admin\UsersController::delete'
   methods: ['POST']
+
+admin_users_pdf:
+  path: /admin/Users/pdf
+  controller: 'App\Controller\Admin\UsersController::generatePdf'
+
