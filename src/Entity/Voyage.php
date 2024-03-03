@@ -37,6 +37,12 @@ class Voyage
     #[ORM\OneToMany(targetEntity: Voyageur::class, mappedBy: 'voyage')]
     private Collection $Voyagee;
 
+    #[ORM\Column(length: 255)]
+    private ?string $destination = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->Voyagee = new ArrayCollection();
@@ -91,6 +97,30 @@ class Voyage
     public function setPrix(string $Prix): static
     {
         $this->Prix = $Prix;
+
+        return $this;
+    }
+
+    public function getDestination(): ?string
+    {
+        return $this->destination;
+    }
+
+    public function setDestination(string $destination): static
+    {
+        $this->destination = $destination;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

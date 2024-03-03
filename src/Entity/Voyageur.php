@@ -39,6 +39,9 @@ class Voyageur
     #[ORM\ManyToOne(inversedBy: 'Voyagee')]
     private ?Voyage $voyage = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,6 +115,18 @@ class Voyageur
     public function setVoyage(?Voyage $voyage): static
     {
         $this->voyage = $voyage;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

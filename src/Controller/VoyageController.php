@@ -47,6 +47,35 @@ class VoyageController extends AbstractController
         ]);
     }
 
+    #[Route('/app_voyage_index_front', name: 'app_voyage_index_front', methods: ['GET'])]
+    public function index_front(Request $request, VoyageRepository $voyageRepository): Response
+    {
+        // Get the current page number from the request query parameters
+        $currentPage = $request->query->getInt('page', 1);
+
+        // Define the number of items per page
+        $perPage = 5;
+
+        // Count the total number of voyages
+        $totalVoyages = $voyageRepository->count([]);
+
+        // Calculate the total number of pages
+        $totalPages = ceil($totalVoyages / $perPage);
+
+        // Calculate the offset for pagination
+        $offset = ($currentPage - 1) * $perPage;
+
+        // Retrieve voyages for the current page
+        $voyages = $voyageRepository->findBy([], null, $perPage, $offset);
+
+        return $this->render('voyage/index_front.html.twig', [
+            'voyages' => $voyages,
+            'perPage' => $perPage, // Pass the number of items per page
+            'currentPage' => $currentPage, // Pass the current page number
+            'totalPages' => $totalPages, // Pass the total number of pages
+        ]);
+    }
+
     #[Route('/new', name: 'app_voyage_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
