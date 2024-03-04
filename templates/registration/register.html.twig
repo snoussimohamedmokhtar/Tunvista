@@ -43,6 +43,8 @@
                             label: 'Password'
                         }) }}
                         {{ form_row(registrationForm.agreeTerms) }}
+                        {{ form_row(registrationForm.captcha) }}
+                        {{ form_errors(registrationForm.captcha) }}
 
                     </fieldset>
 

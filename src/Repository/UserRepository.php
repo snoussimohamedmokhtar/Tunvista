@@ -69,7 +69,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findBySearchQuery(\Symfony\Component\HttpFoundation\InputBag|float|bool|int|string|null $query, \Symfony\Component\HttpFoundation\InputBag|float|bool|int|string|null $sortBy, \Symfony\Component\HttpFoundation\InputBag|float|bool|int|string|null $sortDirection)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.firstName LIKE :query ')
+            ->andWhere('u.firstName LIKE :query OR u.lastName LIKE :query ')
             ->setParameter('query', '%' . $query . '%')
             ->orderBy('u.' . $sortBy, $sortDirection)
             ->getQuery()
