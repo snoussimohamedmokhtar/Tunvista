@@ -20,6 +20,7 @@
             <th>Nom</th>
             <th>Prenom</th>
             <th>Age</th>
+            <th>Email</th>
             <th>Etat Civil</th>
             <th>actions</th>
         </tr>
@@ -32,6 +33,7 @@
                 <td>{{ voyageur.Nom }}</td>
                 <td>{{ voyageur.Prenom }}</td>
                 <td>{{ voyageur.Age }}</td>
+                <td>{{ voyageur.Email }}</td>
                 <td>{{ voyageur.EtatCivil }}</td>
                 <td>
                     <a href="{{ path('app_voyageur_show', {'id': voyageur.id}) }}" class="btn btn-primary" style="border-radius: 10px;">Show</a>

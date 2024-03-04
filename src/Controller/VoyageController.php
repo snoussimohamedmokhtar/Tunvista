@@ -8,6 +8,7 @@ use App\Repository\VoyageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -77,6 +78,7 @@ class VoyageController extends AbstractController
     }
 
     #[Route('/new', name: 'app_voyage_new', methods: ['GET', 'POST'])]
+
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $voyage = new Voyage();
@@ -84,6 +86,24 @@ class VoyageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('image')->getData();
+
+            if ($image) {
+                $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
+                $newFilename = $originalFilename.'.'.$image->guessExtension();
+
+                try {
+                    $image->move(
+                        $this->getParameter('image_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Handle the exception if needed
+                }
+
+                $voyage->setImage($newFilename);
+            }
+
             $entityManager->persist($voyage);
             $entityManager->flush();
 
@@ -96,7 +116,9 @@ class VoyageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_voyage_show', methods: ['GET'])]
+    // Other methods in the controller...
+
+#[Route('/{id}', name: 'app_voyage_show', methods: ['GET'])]
     public function show(Voyage $voyage): Response
     {
         return $this->render('voyage/show.html.twig', [

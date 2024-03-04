@@ -19,13 +19,27 @@
                 <th>DateDepart</th>
                 <td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
             </tr>
+
             <tr>
                 <th>DateArrive</th>
                 <td>{{ voyage.DateArrive ? voyage.DateArrive|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
+                <th>Destination</th>
+                <td>{{ voyage.Destination }}</td>
+            </tr>
+
+            <tr>
                 <th>Prix</th>
                 <td>{{ voyage.Prix }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td> {% if voyage.image %}
+                        <img src="{{ asset('/uploads/' ~ voyage.image) }}"  style="max-width: 100px; max-height: 100px;">
+                    {% else %}
+                        Aucune image disponible
+                    {% endif %}</td>
             </tr>
         </tbody>
     </table>

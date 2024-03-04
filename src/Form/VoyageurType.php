@@ -20,6 +20,7 @@ class VoyageurType extends AbstractType
             ->add('Nom', TextType::class)
             ->add('Prenom', TextType::class)
             ->add('Age')
+            ->add('Email')
             ->add('EtatCivil', ChoiceType::class, [
                 'choices' => [
                     'Single' => 'Single',

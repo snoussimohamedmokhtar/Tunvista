@@ -100,7 +100,17 @@ class Voyage
 
         return $this;
     }
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
     public function getDestination(): ?string
     {
         return $this->destination;
@@ -113,16 +123,6 @@ class Voyage
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
 }

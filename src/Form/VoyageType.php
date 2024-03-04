@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Voyage;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -22,6 +23,16 @@ class VoyageType extends AbstractType
             ])
             ->add('DateArrive', DateType::class, [
                 'widget' => 'single_text',
+            ])
+            ->add('Destination', TextareaType::class, [
+                'attr' => ['rows' => 3],
+            ])
+
+            ->add('image',FileType::class,[
+                'label' => 'image',
+                'mapped' => false,
+                'required' => false,
+
             ])
             ->add('Prix')
         ;
