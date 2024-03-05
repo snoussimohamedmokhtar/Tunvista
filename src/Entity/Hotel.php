@@ -134,7 +134,7 @@ private ?string $image = null;
     }
 
     public function __toString() {
-        return  $this->Nom_hotel. ' ' . $this->Nbre_etoile. ' '.$this->Adresse_hotel .' ('.$this->prix_nuit.' )';
+        return  $this->Nom_hotel. ' ' . $this->Nbre_etoile. ' '.$this->Adresse_hotel .' '.$this->prix_nuit .' '.' ('.$this->image .' )';
     }
 
     public function getImage(): ?string

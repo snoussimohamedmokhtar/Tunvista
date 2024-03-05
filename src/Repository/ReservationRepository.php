@@ -20,7 +20,21 @@ class ReservationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Reservation::class);
     }
+    public function findAllAscending(string $criteria): array
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy($criteria, 'ASC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function findAllDescending(string $criteria): array
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy($criteria, 'DESC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Reservation[] Returns an array of Reservation objects
 //     */

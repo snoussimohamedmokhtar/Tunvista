@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\Mapping as ORM;
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 
 
@@ -27,6 +30,76 @@ class HotelController extends AbstractController
         'hotels' => $hotels,
     ]);
 }
+#[Route('/search', name: 'app_hotel_search', methods: ['GET'])]
+public function search(Request $request, HotelRepository $HotelRepository): JsonResponse
+{
+    $query = $request->query->get('q');
+    $results = $HotelRepository->findBySearchQuery($query); // Implement findBySearchQuery method in your repository
+
+    $formattedResults = [];
+    foreach ($results as $result) {
+        // Format results as needed
+        $formattedResults[] = [
+            'idH' => $result->getIdH(),
+            'Nom_hotel' => $result->getNomHotel(),
+            'Nbre_etoile' => $result->getNbreEtoile(),
+            'Adresse_hotel' => $result->getAdresseHotel(),
+            'prix_nuit' => $result->getPrixNuit(),
+            'image' => $result->getImage(),
+            // Add other fields as needed
+        ];
+    }
+
+    return new JsonResponse($formattedResults);
+}
+#[Route('/trieasc', name: 'app_hotel_trieasc', methods: ['GET'])]
+public function ascendingAction(HotelRepository $hotelRepository)
+{
+   return $this->render('hotel/index.html.twig', [
+       'hotels' => $hotelRepository->findAllAscending("h.prix_nuit"),
+   ]);
+}
+
+#[Route('/triedesc', name: 'app_hotel_triedesc', methods: ['GET'])]
+public function descendingAction(HotelRepository $hotelRepository)
+{
+  
+   return $this->render('hotel/index.html.twig', [
+       'hotels' => $hotelRepository->findAllDescending("h.prix_nuit"),
+   ]);
+
+}
+/**
+     * @Route("/pdf", name="PDF_Hotel", methods={"GET"})
+     */
+    public function pdf(HotelRepository $hotelRepository): Response
+    {
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('hotel/pdf.html.twig', [
+            'hotels' => $hotelRepository->findAll(),
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        return new Response($dompdf->output(), Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf',
+        ]);
+    }
 #[Route('/new', name: 'app_hotel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -135,39 +208,7 @@ class HotelController extends AbstractController
         ]); 
         
     }
-    #[Route('/search', name: 'app_search_hotel', methods: ['POST'])]
-    public function searchAction(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $query = $request->request->get('query');
-        
-        $dql = "SELECT h FROM App\Entity\Hotel h WHERE LOWER(h.Nom_hotel) LIKE :query";
-        
-        $hotels = $entityManager->createQuery($dql)
-            ->setParameter('query', '%' . mb_strtolower($query) . '%')
-            ->getResult();
-        
-        return $this->render('Hotel/index.html.twig', [
-            'hotels' => $hotels,
-        ]);
-    }
-    
-    #[Route('/trieasc', name: 'app_trieasc', methods: ['GET'])]
-    public function ascendingAction(HotelRepository $hotelRepository)
-    {
-        return $this->render('hotel/index.html.twig', [
-            'hotel' => $hotelRepository->findAllAscending("h.prix_nuit"),
-        ]);
-    }
-    
-    #[Route('/triedesc', name: 'app_triedesc', methods: ['GET'])]
-    public function descendingAction(HotelRepository $hotelRepository)
-    {
-       
-        return $this->render('hotel/index.html.twig', [
-            'hotel' => $hotelRepository->findAllDescending("h.prix_nuit"),
-        ]);
-    
-    }
+  
     
 }
 

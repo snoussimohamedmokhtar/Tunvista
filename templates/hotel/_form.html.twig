@@ -1,4 +1,35 @@
-{{ form_start(form,{'attr':{'novalidate':'novalidate'}}) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+<div class="form-group">
+    {{ form_label(form.Nom_hotel, 'Nom de l\'hôtel') }}
+    {{ form_widget(form.Nom_hotel, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.Nom_hotel) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.Nbre_etoile, 'Nombre d\'étoiles') }}
+    {{ form_widget(form.Nbre_etoile, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.Nbre_etoile) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.Adresse_hotel, 'Adresse de l\'hôtel') }}
+    {{ form_widget(form.Adresse_hotel, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.Adresse_hotel) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.prix_nuit, 'Prix par nuit') }}
+    {{ form_widget(form.prix_nuit, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.prix_nuit) }}</div>
+</div>
+
+<div class="form-group">
+    {{ form_label(form.image, 'Image') }}
+    {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+    <div class="text-danger">{{ form_errors(form.image) }}</div>
+</div>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

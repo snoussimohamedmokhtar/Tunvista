@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Reservation{% endblock %}
 
@@ -47,6 +47,8 @@
                 <th>nbreEnfant</th>
                 <td>{{ reservation.nbreEnfant }}</td>
             </tr>
+            <p>Total Price: {{ reservation.calculateTotalPrice() }}</p>
+
         </tbody>
     </table>
 

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        .invoice-title h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .invoice-title h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        address {
+            margin-top: 10px;
+            font-style: normal;
+        }
+
+        .panel-heading {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 15px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .table th {
+            background-color: #f5f5f5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .no-line {
+            border: none;
+        }
+
+        .thick-line {
+            border-top-width: 2px;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .establishment {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .establishment img {
+            max-width: 200px;
+            margin-bottom: 10px;
+        }
+
+        .signature {
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="establishment">
+            <h2>PETSHOME</h2>
+        </div>
+        <div class="invoice-title">
+            <h2>Invoice</h2>
+            <h3>Order {{ reservation.idR }}</h3>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-6">
+                <address>
+                    <strong>Billed To:</strong><br>
+                    {{ reservation.IdClient }}<br> {# Utilisez Id_client au lieu de id_client #}
+                    1234 Main<br>
+                    Apt. 4B<br>
+                    Springfield, ST 54321
+                </address>
+            </div>
+            <div class="col-xs-6 text-right">
+                <address>
+                    <strong>Shipped To:</strong><br>
+                    {{ reservation.IdClient }}<br> {# Utilisez Id_client au lieu de id_client #}
+                    1234 Main<br>
+                    Apt. 4B<br>
+                    Springfield, ST 54321
+                </address>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <address>
+                    <strong>Payment Method:</strong><br>
+                    Visa ending **** 4242<br>
+                    jsmith@email.com
+                </address>
+            </div>
+            <div class="col-xs-6 text-right">
+                <address>
+                    <strong>Order Date:</strong><br>
+                    {{ "now"|date("Y-m-d") }}<br><br>
+                </address>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Order Summary</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Quantity</th>
+                        <th class="text-right">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ reservation.TypeR }}</td> {# Utilisez TypeR au lieu de TypeR #}
+                        <td class="text-center">{{ reservation.prixTotal }}</td>
+                        <td class="text-center">1</td>
+                        <td class="text-right">{{ reservation.prixTotal }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Subtotal</td>
+                        <td class="text-right">{{ reservation.prixTotal }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-right">Shipping</td>
+                        <td class="text-right">$15.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3" class="text-right">Total</td>
+                        <td class="text-right">{{ reservation.prixTotal }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="signature">
+            <hr>
+            <p>Authorized Signature:</p>
+        </div>
+    </div>
+    </body>
+    </html>
+</html>

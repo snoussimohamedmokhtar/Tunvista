@@ -1,10 +1,17 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Reservation {% endblock %}
 
 {% block body %}
-    <h1>Reservation </h1>
+    <h1>Reservation</h1>
 
+    <!-- Bouton pour calculer le prix total -->
+    <button id="calculate-price-btn">Calculer le prix total</button>
+    <div class="sort-bar">
+        <a href="{{ path('app_trieasc', {'criteria': 'Date_arrivee', 'order': 'asc'}) }}">Sort by Date_arrivee (Asc)</a>
+        <a href="{{ path('app_triedesc', {'criteria': 'Date_arrivee', 'order': 'desc'}) }}">Sort by Date_arrivee (Desc)</a>
+    </div>
+    <!-- Tableau des réservations -->
     <table class="table">
         <thead>
             <tr>
@@ -27,7 +34,7 @@
                 <td>{{ reservation.DateArrivee ? reservation.DateArrivee|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation.DateDepart ? reservation.DateDepart|date('Y-m-d') : '' }}</td>
                 <td>{{ reservation.TypeR }}</td>
-                <td>{{ reservation.prixTotal }}</td>
+                <td>{{ reservation.prixTotal }}</td> <!-- Cette colonne affichera le prix total -->
                 <td>{{ reservation.nbreChambre }}</td>
                 <td>{{ reservation.typeChambre }}</td>
                 <td>{{ reservation.nbreAdulte }}</td>
@@ -46,4 +53,6 @@
     </table>
 
     <a href="{{ path('app_reservation_new') }}">Create new</a>
+
+  
 {% endblock %}

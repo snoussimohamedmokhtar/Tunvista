@@ -1,0 +1,38 @@
+<h1 class="align-center">Bienvenue dans votre application TunVista</h1>
+
+<p>Voici la liste de tous les hôtels</p>
+
+<table class="table" border="5">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+            <th>Nom_hotel</th>
+            <th>Nbre_etoile</th>
+            <th>Adresse_hotel</th>
+            <th>Prix_nuit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.idH }}</td>
+                <td>
+                    {% if hotel.image %}
+                        <img src="{{ asset('uploads/' ~ hotel.image) }}" width="250" height="150">
+                    {% else %}
+                    Aucune image disponible
+                    {% endif %}
+                </td>
+                <td>{{ hotel.NomHotel }}</td>
+                <td>{{ hotel.NbreEtoile }}</td> {# Utilisation de la méthode getter pour récupérer le nom de l'hôtel #}
+                <td>{{ hotel.AdresseHotel }}</td>
+                <td>{{ hotel.PrixNuit }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

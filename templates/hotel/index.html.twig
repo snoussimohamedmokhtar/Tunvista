@@ -1,20 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Hotel{% endblock %}
 
 {% block body %}
     <h1>Hotel</h1>
-    <div class="search-bar">
-        <form action="{{ path('app_search_hotel') }}" method="get">
-            <input type="text" name="NomHotel" placeholder="Enter Nom_hotel">
-            <button type="submit">Search</button>
-        </form>
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
+
+    <div class="sort-bar"> 
+        <a href="{{ path('app_hotel_trieasc', {'criteria': 'prixNuit', 'order': 'asc'}) }}">Sort by Price (Asc)</a>
+        <a href="{{ path('app_hotel_triedesc', {'criteria': 'prixNuit', 'order': 'desc'}) }}">Sort by Price (Desc)</a>
     </div>
 
-    <div class="sort-bar">
-        <a href="{{ path('app_trieasc', {'criteria': 'prixNuit', 'order': 'asc'}) }}">Sort by Price (Asc)</a>
-        <a href="{{ path('app_triedesc', {'criteria': 'prixNuit', 'order': 'desc'}) }}">Sort by Price (Desc)</a>
-    </div>
+    <li>
+        <a class="btn btn-success" href="{{ path('PDF_Hotel') }}">PDF</a>
+        <script type="text/javascript">
+            function imprimer_page() {
+                window.print();
+            }
+        </script>
+    </li>
+    
     <table class="table">
         <thead>
             <tr>
@@ -48,6 +53,48 @@
 
         {% endfor %}
         </tbody>
+        <script>
+            // Function to send AJAX request for search
+            function search() {
+                var query = document.getElementById('searchInput').value;
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '{{ path('app_hotel_search') }}?q=' + query, true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        updateTable(response);
+                    }
+                };
+                xhr.send();
+            }
+        
+        
+            // Function to update the table with search results
+            function updateTable(data) {
+                var tableBody = document.querySelector('tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+                if (data.length > 0) {
+                    data.forEach(function (hotel) {
+                        var row = '<tr>';
+                        row += '<td>' + hotel.idH + '</td>';
+                        row += '<td>' + hotel.Nom_hotel + '</td>';
+                        row += '<td>' + hotel.Nbre_etoile + '</td>';
+                        row += '<td>' + hotel.Adresse_hotel + '</td>';
+                        row += '<td>' + hotel.prix_nuit + '</td>';
+                        row += '<td>' + hotel.image+ '</td>';
+                        row += '</tr>';
+                        tableBody.innerHTML += row;
+                    });
+                } else {
+                    tableBody.innerHTML = '<tr><td colspan="8" class="text-center">No records found</td></tr>';
+                }
+            }
+        
+            // Event listener for the search input
+            document.getElementById('searchInput').addEventListener('input', function () {
+                search();
+            });
+        </script>
     </table>
 
     <a href="{{ path('app_hotel_new') }}">Create new</a>

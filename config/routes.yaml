@@ -5,3 +5,12 @@ app_hotel_front:
     path: /hotels
     controller: App\Controller\HotelController::front
     methods: GET
+app_reservation_calculate_price:
+    path: /calculate-price
+    controller: App\Controller\ReservationController::calculateTotalPrice
+    methods: ['POST']
+app_hotel_search:
+  path: /search
+  controller: App\Controller\HotelController::search
+  methods: [GET]
+ 

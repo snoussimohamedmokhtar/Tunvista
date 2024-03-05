@@ -175,5 +175,35 @@ class Reservation
 
         return $this;
     }
+    public function calculateTotalPrice(): ?float
+    {
+        // Vérifier si toutes les informations nécessaires sont présentes
+        if ($this->getDateArrivee() && $this->getDateDepart() && $this->getIdH() && $this->getNbreChambre() && $this->getTypeChambre()) {
+            // Calcul du nombre total de nuits
+            $totalNights = $this->getDateArrivee()->diff($this->getDateDepart())->days;
+
+            // Récupérer le prix par nuit de l'hôtel
+            $prixParNuit = $this->getIdH()->getPrixNuit();
+
+            // Calcul du prix de base avant ajustements
+            $prixBase = $totalNights * $prixParNuit;
+
+            // Ajouter des ajustements supplémentaires en fonction d'autres attributs
+            // Par exemple, ajouter des frais supplémentaires pour le type de chambre, le nombre d'adultes, le nombre d'enfants, etc.
+            $ajustementsSupplementaires = 0;
+            // Ajoutez vos ajustements ici...
+
+            // Calcul du prix total en ajoutant le prix de base et tous les ajustements supplémentaires
+            $prixTotal = $prixBase + $ajustementsSupplementaires;
+
+            // Retournez le prix total calculé
+            return $prixTotal;
+        }
+
+        // Retournez null si certaines informations nécessaires sont manquantes pour calculer le prix total
+        return null;
+    }
+
+    
 
 }

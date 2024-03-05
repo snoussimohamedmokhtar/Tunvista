@@ -20,7 +20,43 @@ class HotelRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Hotel::class);
     }
+    public function gethotelStatistics()
+{
+    return $this->createQueryBuilder('h')
+        ->select('h.Nbre_etoile, COUNT(h.idH) as count')
+        ->groupBy('h.Nbre_etoile')
+        ->getQuery()
+        ->getResult();
+}
 
+public function findBySearchQuery(?string $query): array
+    {
+        if (!$query) {
+            return $this->findAll();
+        }
+
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.idH LIKE :query OR h.Nom_hotel LIKE :query OR h.Nbre_etoile LIKE :query OR h.Adresse_hotel LIKE :query OR h.prix_nuit LIKE :query OR h.image LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllAscending(string $criteria): array
+    {
+        return $this->createQueryBuilder('h')
+            ->orderBy($criteria, 'ASC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllDescending(string $criteria): array
+    {
+        return $this->createQueryBuilder('h')
+            ->orderBy($criteria, 'DESC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Hotel[] Returns an array of Hotel objects
 //     */

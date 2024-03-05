@@ -1,0 +1,27 @@
+{# templates/statistique/hotel.html.twig #}
+
+{% extends 'back.html.twig' %}
+
+{% block body %}
+    <canvas id="hotelChart" width="400" height="200"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var ctx = document.getElementById('hotelChart').getContext('2d');
+        var data = {
+            labels: {{ labels|raw }},
+            datasets: [{
+                label: 'Nbre_etoile',
+                data: {{ data|raw }},
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        };
+
+        var myBarChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+        });
+    </script>
+{% endblock %}

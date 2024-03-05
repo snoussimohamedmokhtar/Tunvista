@@ -19,6 +19,8 @@
                             <p><strong style="color:#696969">Prix par nuit:</strong> {{ hotel.prixNuit }}</p>
                             <center>
                                 <a href="{{ path('app_reservation_new', {'idH': hotel.idH}) }}" class="btn btn-primary">Réserver</a>
+                                <a href="{{ path('app_paiement', {'id': hotel.idH}) }}" class="btn btn-success">Payer</a>
+
                             </center>
                             <br>
                             <br>
