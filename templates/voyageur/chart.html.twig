@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     {{ dump(data) }}
     <div style="width: 100%; margin: auto;">
-        <canvas id="reclamationChart" width="450" height="200"></canvas>
+        <canvas id="voyageChart" width="450" height="200"></canvas>
     </div>
 
     <center>
@@ -21,9 +21,9 @@
 
         const labels = data.map(item => item.EtatCivil);
         const values = data.map(item => parseInt(item.totalEtatCivil)); // Convert to integers
-        
 
-        const ctx = document.getElementById('reclamationChart').getContext('2d');
+
+        const ctx = document.getElementById('voyageChart').getContext('2d');
         console.log("Chart.js loaded"); // Debugging line
         new Chart(ctx, {
             type: 'bar',
@@ -32,7 +32,7 @@
                 datasets: [{
                     label: 'Statistic des etats civil des voyageur',
                     data: values,
-                    backgroundColor: ['blue', 'orange', 'green', 'red'], // Customize colors as needed
+                    backgroundColor: ['purple', 'orange', 'green', 'red'], // Customize colors as needed
                 }],
             },
             options: {
