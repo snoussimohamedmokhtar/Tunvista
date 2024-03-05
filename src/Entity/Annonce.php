@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,11 +21,29 @@ class Annonce
 
     #[ORM\Column(length: 255)]
     #[Assert\Notblank(message:' should not be empty')]
-    private ?string $type_a = null;
+    private ?string $description_a = null;
 
     #[ORM\ManyToOne(inversedBy: 'annonces')]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id_user')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
     private ?User $user = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $titre_a = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ville_a = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $mapsLink = null;
+
+    #[ORM\OneToMany(targetEntity: Notifa::class, mappedBy: 'annonces')]
+    private Collection $notifas;
+
+
+    public function __construct()
+    {
+        $this->notifas = new ArrayCollection();
+    }
 
     /*public function __construct()
     {
@@ -53,14 +73,14 @@ class Annonce
         return $this;
     }
 
-    public function getTypeA(): ?string
+    public function getDescriptionA(): ?string
     {
-        return $this->type_a;
+        return $this->description_a;
     }
 
-    public function setTypeA(string $type_a): static
+    public function setDescriptionA(string $description_a): static
     {
-        $this->type_a = $type_a;
+        $this->description_a = $description_a;
 
         return $this;
     }
@@ -79,4 +99,67 @@ class Annonce
     /*public function __toString() {
         return $this->date_debut->format('Y-m-d H:i:s') . ' ' . $this->type . ' ' . $this->user;
     }*/
+
+    public function getTitreA(): ?string
+    {
+        return $this->titre_a;
+    }
+
+    public function setTitreA(string $titre_a): static
+    {
+        $this->titre_a = $titre_a;
+
+        return $this;
+    }
+
+    public function getVilleA(): ?string
+    {
+        return $this->ville_a;
+    }
+
+    public function setVilleA(string $ville_a): static
+    {
+        $this->ville_a = $ville_a;
+
+        return $this;
+    }
+
+    public function getMapsLink(): ?string
+    {
+        return $this->mapsLink;
+    }
+
+    public function setMapsLink(string $mapsLink): static
+    {
+        $this->mapsLink = $mapsLink;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notifa>
+     */
+    public function getNotifas(): Collection
+    {
+        return $this->notifas;
+    }
+
+    public function addNotifa(Notifa $notifa): static
+    {
+        if (!$this->notifas->contains($notifa)) {
+            $this->notifas->add($notifa);
+            $notifa->addIdAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifa(Notifa $notifa): static
+    {
+        if ($this->notifas->removeElement($notifa)) {
+            $notifa->removeIdAnnonce($this);
+        }
+
+        return $this;
+    }
 }

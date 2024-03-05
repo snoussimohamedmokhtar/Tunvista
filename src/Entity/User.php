@@ -14,29 +14,42 @@ class User
     #[ORM\GeneratedValue]
 
     #[ORM\Column]
-    private ?int $id_user = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $mdp = null;
+    private ?string $password = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $nom = null;
+    private ?string $first_name = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $prenom = null;
+    private ?string $last_name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    private ?string $roles = null;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Annonce::class)]
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Annonce::class)]
     private Collection $annonces;
+
+    #[ORM\Column(length: 255)]
+    private ?string $adresse = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $region = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ville = null;
+
+    #[ORM\OneToMany(targetEntity: Notifa::class, mappedBy: 'users')]
+    private Collection $notifas;
 
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
+        $this->notifas = new ArrayCollection();
     }
     public function __construct1()
     {
@@ -45,14 +58,14 @@ class User
 
 
 
-    public function getIdUser(): ?int
+    public function getId(): ?int
     {
-        return $this->id_user;
+        return $this->id;
     }
 
-    public function setIdUser(int $id_user): static
+    public function setId(int $id): static
     {
-        $this->id_user = $id_user;
+        $this->id = $id;
 
         return $this;
     }
@@ -69,50 +82,50 @@ class User
         return $this;
     }
 
-    public function getMdp(): ?string
+    public function getPassword(): ?string
     {
-        return $this->mdp;
+        return $this->password;
     }
 
-    public function setMdp(string $mdp): static
+    public function setPassword(string $password): static
     {
-        $this->mdp = $mdp;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->nom;
+        return $this->first_name;
     }
 
-    public function setNom(string $nom): static
+    public function setFirstName(string $first_name): static
     {
-        $this->nom = $nom;
+        $this->first_name = $first_name;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getLastName(): ?string
     {
-        return $this->prenom;
+        return $this->last_name;
     }
 
-    public function setPrenom(string $prenom): static
+    public function setlastName(string $last_name): static
     {
-        $this->prenom = $prenom;
+        $this->last_name = $last_name;
 
         return $this;
     }
 
-    public function getRole(): ?string
+    public function getRoles(): ?string
     {
-        return $this->role;
+        return $this->roles;
     }
 
-    public function setRole(string $role): static
+    public function setRoles(string $roles): static
     {
-        $this->role = $role;
+        $this->roles = $roles;
 
         return $this;
     }
@@ -147,6 +160,69 @@ class User
         return $this;
     }
     public function __toString() {
-        return $this->id_user . ' ' . $this->email . ' ' . $this->mdp . ' ' . $this->nom . ' ' . $this->prenom . ' ' . $this->role;
+        return $this->id . ' ' . $this->email . ' ' . $this->password . ' ' . $this->first_name . ' ' . $this->last_name . ' ' . $this->adresse . ' ' . $this->region . ' ' . $this->ville;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): static
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): static
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notifa>
+     */
+    public function getNotifas(): Collection
+    {
+        return $this->notifas;
+    }
+
+    public function addNotifa(Notifa $notifa): static
+    {
+        if (!$this->notifas->contains($notifa)) {
+            $this->notifas->add($notifa);
+            $notifa->addIdUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotifa(Notifa $notifa): static
+    {
+        if ($this->notifas->removeElement($notifa)) {
+            $notifa->removeIdUser($this);
+        }
+
+        return $this;
     }
 }

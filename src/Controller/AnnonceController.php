@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Notifa;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\UserRepository;
+use App\Service\QrCodeGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,20 +22,86 @@ class AnnonceController extends AbstractController
     #[Route('/', name: 'app_annonce_index', methods: ['GET', 'POST'])]
     public function index(Request $request, AnnonceRepository $annonceRepository): Response
     {
+        $annonceRepository->deleteExpiredAnnouncements();
+        // Retrieve search terms and sorting options from the request
         $searchTerm = $request->request->get('search', '');
-        $type = $request->request->get('type', '');
+        $titre = $request->request->get('titre', '');
+        $sortBy = $request->query->get('sortBy', 'titre_a'); // Default sorting by titreA
+        $sortDirection = $request->query->get('sortDirection', 'asc'); // Default sort direction is ascending
 
-        // Si le formulaire est soumis, vous pouvez également récupérer le type et le terme de recherche à partir de la requête POST
+        //$villeNotifa = $request->request->get('ville_a', ''); // Assuming you have a method to get the ville_notif value
+        //$usersWithMatchingVille = $userRepository->findBy(['ville' => $villeNotifa]);
+
+        // Create notifications for each user with a matching ville_notif
+        /*foreach ($usersWithMatchingVille as $user) {
+            $notifa = new Notifa();
+            $notifa->setUser($user);
+            $notifa->setAnnonce($Annonce);
+            // Set other notification attributes as needed
+            $entityManager->persist($notifa);
+        }*/
+
+
+        $showModal = true;
+        // Handle form submission
         if ($request->isMethod('POST')) {
             $searchTerm = $request->request->get('search');
-            $type = $request->request->get('type');
+            $sortBy = $request->request->get('sortBy', 'titre_a'); // Default sorting by titreA
+            $sortDirection = $request->request->get('sortDirection', 'asc'); // Default sort direction is ascending
         }
 
-        // Rechercher les annonces en fonction du terme de recherche et du type
-        $annonces = $annonceRepository->findBySearchTermAndType($searchTerm, $type);
+        // Validate sorting options
+        $validSortOptions = ['titre_a', 'description_a', 'ville_a', 'date_debut'];
+        if (!in_array($sortBy, $validSortOptions)) {
+            throw $this->createNotFoundException('Invalid sort option.');
+        }
+
+// Validate sort direction
+        $validSortDirections = ['asc', 'desc'];
+        if (!in_array($sortDirection, $validSortDirections)) {
+            throw $this->createNotFoundException('Invalid sort direction.');
+        }
+
+// Retrieve annonces based on search term
+        $annonces = $annonceRepository->findBySearchTermAndTitre($searchTerm, $titre);
+
+// Sort annonces based on sorting options
+        usort($annonces, function($a, $b) use ($sortBy, $sortDirection) {
+            $getterA = 'get' . ucfirst($sortBy);
+            $getterB = 'get' . ucfirst($sortBy);
+
+            // Special handling for description_a and date_debut fields
+            if ($sortBy === 'description_a') {
+                $valueA = $a->getDescriptionA();
+                $valueB = $b->getDescriptionA();
+            } elseif ($sortBy === 'titre_a') {
+                $valueA = $a->getTitreA();
+                $valueB = $b->getTitreA();
+            } elseif ($sortBy === 'ville_a') {
+                $valueA = $a->getVilleA();
+                $valueB = $b->getVilleA();
+            }elseif ($sortBy === 'date_debut') {
+                $valueA = $a->getDateDebut();
+                $valueB = $b->getDateDebut();
+            }else {
+                $valueA = $a->$getterA();
+                $valueB = $b->$getterB();
+            }
+
+            if ($sortDirection === 'asc') {
+                return $valueA <=> $valueB;
+            } else {
+                return $valueB <=> $valueA;
+            }
+        });
+
+
 
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonces,
+            'showModal' => $showModal,
+            'sortBy' => $sortBy,
+            'sortDirection' => $sortDirection,
         ]);
     }
     #[Route('/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
@@ -56,10 +125,26 @@ class AnnonceController extends AbstractController
     }
 
     #[Route('/{id_annonce}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce): Response
+    public function show(Annonce $annonce, AnnonceRepository $annonceRepository, UserRepository $userRepository, QrCodeGenerator $qrCodeGenerator): Response
     {
+        // Retrieve the maps API link associated with the annonce
+        $mapsLink = $annonce->getMapsLink();
+        $annonces = $annonceRepository->findAll();
+
+        // Array to store QR codes for each annonce
+        $qrCodes = [];
+
+        // Generate QR code for each annonce's user and store it in $qrCodes array
+        foreach ($annonces as $annonce) {
+            $user = $annonce->getUser();
+            $qrCode = $qrCodeGenerator->createQrCode($user);
+            $qrCodes[$annonce->getIdAnnonce()] = $qrCode->getString();
+        }
+
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
+            'mapsLink' => $mapsLink, // Pass the maps API link to the show template
+            'qrCodes' => $qrCodes, // Pass the QR codes array to the show template
         ]);
     }
 
@@ -92,15 +177,15 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/annonces/tri', name: 'app_annonce_tri', methods: ['POST'])]
+    /*#[Route('/annonces/tri', name: 'app_annonce_tri', methods: ['POST'])]
     public function sortedList(EntityManagerInterface $entityManager): Response
     {
-        $annonces = $entityManager->getRepository(Annonce::class)->findBy([], ['date_debut' => 'ASC']);
+        $annonces = $entityManager->getRepository(Annonce::class)->findBy([], ['titreA' => 'ASC']);
 
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonces,
         ]);
-    }
+    }*/
 
     #[Route('/annonces/pdf', name: 'app_annonce_pdf', methods: ['GET'])]
     public function generatePdf(): Response
@@ -145,7 +230,9 @@ class AnnonceController extends AbstractController
             <tr>
                 <th align="center">ID</th>
                 <th align="center">Date de début</th>
-                <th align="center">Type</th>
+                <th align="center">Description</th>
+                <th align="center">Titre</th>
+                <th align="center">Ville</th>
             </tr>';
 
         // Populate table with data
@@ -153,7 +240,9 @@ class AnnonceController extends AbstractController
             $html .= '<tr>
                 <td align="center">' . $annonce->getIdAnnonce() . '</td>
                 <td align="center">' . $annonce->getDateDebut()->format('Y-m-d') . '</td>
-                <td align="center">' . $annonce->getTypeA() . '</td>
+                <td align="center">' . $annonce->getDescriptionA() . '</td>
+                <td align="center">' . $annonce->getTitreA() . '</td>
+                <td align="center">' . $annonce->getVilleA() . '</td>
             </tr>';
         }
 
@@ -168,7 +257,33 @@ class AnnonceController extends AbstractController
         // Return a Symfony Response object
         return new Response();
     }
+    #[Route('/annonce/statistiques', name: 'app_annonce_statistiques')]
+    public function statistiques(): Response
+    {
+        $annonces = $this->getDoctrine()->getRepository(Annonce::class)->findAll();
 
+        // Traitement des données pour le graphique
 
+        return $this->render('annonce/statistiques.html.twig', [
+            'annonce' => $annonces,
+        ]);
+    }
+    /*#[Route('/profile', name: 'profile')]
+    public function profile(QrCodeGenerator $qrCodeGenerator): Response
+    {
+        // Get the current user object
+        $user = $this->$annonce->getUser();
 
+        // Generate the QR code for the user
+        $qrCode = $qrCodeGenerator->createQrCode($annonce->getUser());
+
+        // Render the QR code as SVG
+        $qrCodeSvg = $qrCode->getString();
+
+        // Pass user data and the SVG QR code to the template
+        return $this->render('user/Profile.html.twig', [
+            'user' => $user,
+            'qrCode' => $qrCodeSvg,
+        ]);
+    }*/
 }

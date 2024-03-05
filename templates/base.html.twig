@@ -36,6 +36,22 @@
 
 <body>
 {% block body %}
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog ">
+            <div class="modal-content container">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Delice</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Modal body content goes here -->
+                    <img class="{{ asset('img-fluid w-50') }}" src="{{ asset('img/delice.jpg') }}" alt="" style="object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -102,22 +118,25 @@
             </div>
         </nav>
 
-        <div class="container-fluid bg-primary py-5 mb-5 hero-header">
-            <div class="container py-5">
-                <div class="row justify-content-center py-5">
-                    <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
-                        <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
-                        <p class="fs-4 text-white mb-4 animated slideInDown">Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit</p>
-                        <div class="position-relative w-75 mx-auto animated slideInDown">
-                            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
-                            <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
-                        </div>
+    <div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image: url('{{ asset('/img/bg-hero.jpg') }}');">
+        <div class="py-5">
+            <div class="row justify-content-center py-5">
+                <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                    <h1 class="display-3 text-white mb-3 animated slideInDown">Enjoy Your Vacation With Us</h1>
+                    <p class="fs-4 text-white mb-4 animated slideInDown">Tempor erat elitr rebum at clita diam amet diam et eos erat ipsum lorem sit</p>
+                    <div class="position-relative w-75 mx-auto animated slideInDown">
+                        <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Eg: Thailand">
+                        <button type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px;">Search</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+</div>
     <!-- Navbar & Hero End -->
+
 
 
     <!-- About Start -->
@@ -126,6 +145,10 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
                     <div class="position-relative h-100">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                            Launch modal
+                        </button>
+
                         <img class="{{ asset('img-fluid position-absolute w-100 h-100') }}" src="{{ asset('img/about.jpg') }}" alt="" style="object-fit: cover;">
                     </div>
                 </div>
@@ -702,7 +725,21 @@
 
     <!-- JavaScript Libraries -->
 {% block js %}
+
+    <script>
+        $(document).ready(function() {
+            // Show the modal when the page loads
+            $('#myModal').modal('show');
+
+            // Hide the modal after 3 seconds
+            setTimeout(function() {
+                $('#myModal').modal('hide');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+    </script>
     <script src="{{asset('https://code.jquery.com/jquery-3.4.1.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('lib/wow/wow.min.js')}}"></script>
     <script src="{{asset('lib/easing/easing.min.js')}}"></script>
@@ -711,6 +748,20 @@
     <script src="{{asset('lib/tempusdominus/js/moment.min.js')}}"></script>
     <script src="{{asset('lib/tempusdominus/js/moment-timezone.min.js')}}"></script>
     <script src="{{asset('lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    {% if showModal %}
+    <!-- Script to open modal automatically -->
+    <script>
+        $(document).ready(function() {
+            // Show the modal when the page loads
+            $('#myModal').modal('show');
+
+            // Hide the modal after 3 seconds
+            setTimeout(function() {
+                $('#myModal').modal('hide');
+            }, 3000); // 3000 milliseconds = 3 seconds
+        });
+    </script>
+    {% endif %}
 
     <!-- Template Javascript -->
     <script src="{{asset('js/main.js')}}"></script>

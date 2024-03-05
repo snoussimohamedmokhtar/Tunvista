@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,12 +16,7 @@ class AnnonceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('date_debut', null, [
-                'constraints' => [
-                    new NotBlank(['message' => 'La date ne doit pas être vide.']),
-                ],
-            ])
-            ->add('type_a', null, [
+            ->add('titre_a', null, [
                 'constraints' => [
                     new NotBlank(['message' => 'Le type ne doit pas être vide.']),
                     new Regex([
@@ -29,13 +25,33 @@ class AnnonceType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('description_a', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'User ne doit pas être vide.']),
+                ],
+            ])
+            ->add('ville_a', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'User ne doit pas être vide.']),
+                ],
+            ])
             ->add('user', null, [
                 'constraints' => [
                     new NotBlank(['message' => 'User ne doit pas être vide.']),
                 ],
-            ]);
+            ])
+            ->add('date_debut', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'La date ne doit pas être vide.']),
+                ],
+            ])
+            ->add('mapsLink', null, [
+                'constraints' => [
+                    new NotBlank(['message' => 'User ne doit pas être vide.']),
+                ],
+            ])
 
-            /*->add('picture', type: FileType::class, options: [
+            /*->add('pictureA', type: FileType::class, options: [
                 'label' => 'Picture :',
                 'mapped' => false,
                 'required' => false,

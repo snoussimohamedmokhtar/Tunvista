@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,22 +23,57 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
     // AnnonceRepository.php
-    public function findBySearchTermAndType($searchTerm, $type)
+    // AnnonceRepository.php
+    public function findBySearchTermAndTitre($searchTerm, $titre)
     {
         $queryBuilder = $this->createQueryBuilder('a');
 
         if (!empty($searchTerm)) {
-            $queryBuilder->andWhere('a.type_a LIKE :searchTerm')
+            $queryBuilder->andWhere('a.titre_a LIKE :searchTerm')
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 
-        if (!empty($type)) {
-            $queryBuilder->andWhere('a.type_a = :type')
-                ->setParameter('type', $type);
+        if (!empty($titre)) {
+            $queryBuilder->andWhere('a.titre_a = :titre')
+                ->setParameter('titre', $titre);
         }
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    public function getStatisticsByCity(): array
+    {
+        return $this->createQueryBuilder('a')
+            ->select('a.ville_a, COUNT(a.id_annonce) as total')
+            ->groupBy('a.ville_a')
+            ->getQuery()
+            ->getResult();
+    }
+    public function deleteExpiredAnnouncements()
+    {
+        // Get the current date and time
+        $currentDate = new DateTime();
+
+        // Create a query builder
+        $queryBuilder = $this->createQueryBuilder('a');
+
+        // Add a condition to filter announcements with expiration date before the current date
+        $queryBuilder
+            ->where('a.date_debut < :currentDate')
+            ->setParameter('currentDate', $currentDate);
+
+        // Get the matching announcements
+        $expiredAnnouncements = $queryBuilder->getQuery()->getResult();
+
+        // Delete each expired announcement
+        foreach ($expiredAnnouncements as $expiredAnnouncement) {
+            $this->_em->remove($expiredAnnouncement);
+        }
+
+        // Execute the delete operations
+        $this->_em->flush();
+    }
+
 
 
 

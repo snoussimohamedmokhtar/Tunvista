@@ -395,7 +395,7 @@
                 </a>
                 <ul id="annonce-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             <li>
-                <a href="{{ path('app_annonce1') }}">
+                <a href="{{ path('app_annonce1_index') }}">
                     <i class="bi bi-circle"></i><span>Annonce</span>
                 </a>
             </li>
@@ -511,28 +511,29 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Evenement index</h1>
+            <h1>Les evenements</h1>
 
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id_evenement</th>
-                    <th>Date_debut</th>
-                    <th>Date_fin</th>
-                    <th>Type</th>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Ville</th>
+                    <th>Date</th>
                     <th>actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for evenement in evenements %}
                     <tr>
-                        <td>{{ evenement.getIdEvenement() }}</td>
+                        <td>{{ evenement.getTitreE() }}</td>
+                        <td>{{ evenement.getDescriptionE() }}</td>
+                        <td>{{ evenement.getVilleE() }}</td>
                         <td>{{ evenement.getDateDeb ? evenement.getDateDeb|date('Y-m-d') : '' }}</td>
-                        <td>{{ evenement.getDateFin ? evenement.getDateFin|date('Y-m-d') : '' }}</td>
-                        <td>{{ evenement.getTypeE }}</td>
                         <td>
                             <a href="{{ path('app_evenement1_show', {'id_evenement': evenement.getIdEvenement()}) }}">show</a>
                             <a href="{{ path('app_evenement1_edit', {'id_evenement': evenement.getIdEvenement()}) }}">edit</a>
+                            <a href="{{ path('app_evenement1_delete', {'id_evenement': evenement.getIdEvenement()}) }}">Delete</a>
                         </td>
                     </tr>
                 {% else %}
@@ -543,7 +544,7 @@
                 </tbody>
             </table>
 
-            <a href="{{ path('app_evenement1_new') }}">Create new</a>
+            <a href="{{ path('app_evenement_new') }}" class="btn btn-info rounded-3 my-2 mx-1" style="position: absolute;">Create New</a>
         </div>
         </section>
 

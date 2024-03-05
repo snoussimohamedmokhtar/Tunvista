@@ -1,0 +1,59 @@
+<div id="chartContainer" style="width: 80%; margin: auto;">
+    <canvas id="myChart" style="padding: 5px;"></canvas>
+</div>
+
+<script>
+    var labels = [];
+    var annonceCounts = [];
+
+    {% set villeCounts = {} %}
+    {% for annoncess in annonce %}
+    {% set ville = annoncess.villeA %}
+    {% if villeCounts[ville] is not defined %}
+    {% set villeCounts = villeCounts|merge({ (ville): 1 }) %}
+    {% else %}
+    {% set villeCounts = villeCounts|merge({ (ville): villeCounts[ville] + 1 }) %}
+    {% endif %}
+    {% endfor %}
+
+    {% for ville, count in villeCounts %}
+    labels.push('{{ ville }}');
+    annonceCounts.push({{ count }});
+    {% endfor %}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Nombre d\'annonces',
+                data: annonceCounts,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Nombre d\'annonces'
+                    },
+                    stepSize: 1 // Force y-axis to display only integer values
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Ville'
+                    }
+                }
+            }
+        }
+    });
+</script>

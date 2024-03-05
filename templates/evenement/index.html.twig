@@ -3,105 +3,126 @@
 {% block title %}Evenement index{% endblock %}
 
 {% block body %}
-<html lang="en">
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><i class="fa fa-map-marker-alt me-3"></i>Tourist</h1>
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="about.html" class="nav-item nav-link ">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+                    <a href="package.html" class="nav-item nav-link">Packages</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="destination.html" class="dropdown-item">Destination</a>
+                            <a href="booking.html" class="dropdown-item">Booking</a>
+                            <a href="team.html" class="dropdown-item">Travel Guides</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            <a href="404.html" class="dropdown-item">404 Page</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid bg-primary py-5 mb-5 hero-header" style="background-image: url('{{ asset('/img/bg-hero.jpg') }}');">
+                <div class="container py-5">
+        <div class="row justify-content-center py-5 ">
+            <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Evenement</h1>
+            </div>
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <form action="#" method="post">
+                <div class="position-relative w-75 mx-auto animated slideInDown">
+                    <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" name="search" placeholder="Recherche">
+                    <button type="submit" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" style="margin-top: 7px; ">Rechercher</button>
+                </div></form>
 
-    <title>Dashboard - NiceAdmin Bootstrap Template</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="/assets/img/favicon.png" rel="icon">
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+        </div>
+    </div>
+    </div>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com/" rel="preconnect">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    </div>
+    <h1>Les evenements</h1>
 
-    <!-- Vendor CSS Files -->
-    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <html lang="en">
-
-    <head>
-        <meta charset="utf-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-        <title>Dashboard - NiceAdmin Bootstrap Template</title>
-        <meta content="" name="description">
-        <meta content="" name="keywords">
-
-        <!-- Favicons -->
-        <link href="/assets/img/favicon.png" rel="icon">
-        <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-        <!-- Google Fonts -->
-        <link href="https://fonts.gstatic.com/" rel="preconnect">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-        <!-- Vendor CSS Files -->
-        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-        <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-        <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-        <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-        <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-        <!-- Template Main CSS File -->
-        <link href="/assets/css/style.css" rel="stylesheet">
-
-        <!-- =======================================================
-
-Template Name: NiceAdmin
-Updated: Jan 29 2024 with Bootstrap v5.3.2
-Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-Author: BootstrapMade.com
-License: https://bootstrapmade.com/license/
-======================================================== -->
-    </head>
-    <h1>Evenement index</h1>
-
-    <table class="table">
+    <table class="table m-5">
         <thead>
-            <tr>
-                <th>Id_evenement</th>
-                <th>Date_debut</th>
-                <th>Date_fin</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Titre
+                <a href="{{ path('app_evenement_index', {'sortBy': 'titre_e'}) }}">
+                    <span class="bi bi-sort-alpha-down"></span> <!-- Icon for ascending order -->
+                </a>
+                <a href="{{ path('app_evenement_index', {'sortBy': 'titre_e', 'sortDirection': 'desc'}) }}">
+                    <span class="bi bi-sort-alpha-up"></span> <!-- Icon for descending order -->
+                </a>
+            </th>
+            <th>Description
+                <a href="{{ path('app_evenement_index', {'sortBy': 'description_e'}) }}">
+                    <span class="bi bi-sort-alpha-down"></span> <!-- Icon for ascending order -->
+                </a>
+                <a href="{{ path('app_evenement_index', {'sortBy': 'description_e', 'sortDirection': 'desc'}) }}">
+                    <span class="bi bi-sort-alpha-up"></span> <!-- Icon for descending order -->
+                </a>
+            </th>
+            <th>Ville
+                <a href="{{ path('app_evenement_index', {'sortBy': 'ville_e'}) }}">
+                    <span class="bi bi-sort-alpha-down"></span> <!-- Icon for ascending order -->
+                </a>
+                <a href="{{ path('app_evenement_index', {'sortBy': 'ville_e', 'sortDirection': 'desc'}) }}">
+                    <span class="bi bi-sort-alpha-up"></span> <!-- Icon for descending order -->
+                </a>
+            </th>
+            <th>Date
+                <a href="{{ path('app_evenement_index', {'sortBy': 'date_deb'}) }}">
+                    <span class="bi bi-sort-numeric-down"></span> <!-- Icon for ascending order -->
+                </a>
+                <a href="{{ path('app_evenement_index', {'sortBy': 'date_deb', 'sortDirection': 'desc'}) }}">
+                    <span class="bi bi-sort-numeric-up"></span> <!-- Icon for descending order -->
+                </a>
+            </th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for evenement in evenements %}
-            <tr>
-                <td>{{ evenement.getIdEvenement() }}</td>
-                <td>{{ evenement.getDateDeb ? evenement.getDateDeb|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.getDateFin ? evenement.getDateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ evenement.getTypeE }}</td>
-                <td>
-                    <a href="{{ path('app_evenement_show', {'id_evenement': evenement.getIdEvenement()}) }}">show</a>
-                    <a href="{{ path('app_evenement_edit', {'id_evenement': evenement.getIdEvenement()}) }}">edit</a>
-                </td>
-            </tr>
+            {% if evenement.getDateDeb >= "now"|date("D") %}
+                <tr>
+
+                    <td>{{ evenement.getTitreE() }}</td>
+                    <td>{{ evenement.getDescriptionE() }}</td>
+                    <td>{{ evenement.getVilleE() }}</td>
+
+
+                    <td>{{ evenement.getDateDeb ? evenement.getDateDeb|date('Y-m-d') : '' }}</td>
+                    <td>
+                        <div style="position: relative;">
+                            <a href="{{ path('app_evenement_show', {'id_evenement': evenement.getIdEvenement()}) }}" class="btn btn-primary rounded-3 my-2 mx-1" style="position: absolute; top: 0; right: 220px;" >Show</a>
+                            <a href="{{ path('app_evenement_edit', {'id_evenement': evenement.getIdEvenement()}) }}" class="btn btn-warning rounded-3 my-2 mx-1" style="position: absolute; top: 0; right: 160px;" >Edit</a>
+                            <a href="{{ path('app_evenement_delete', {'id_evenement': evenement.getIdEvenement()}) }}" class="btn btn-danger rounded-3 my-2 mx-1" style="position: absolute; top: 0; right: 81px;">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            {% endif %}
+
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="4">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_evenement_new') }}">Create new</a>
+    <div style="position: relative;">
+        <a href="{{ path('app_evenement_new') }}" class="btn btn-info rounded-3 my-2 mx-1" style="position: absolute; left: 0;">Create New</a>
+        <a href="{{ path('app_evenement_pdf') }}" class="btn btn-success rounded-3 my-2 mx-1" style="position: absolute;  left: 115px;">PDF</a>
+        <a href="{{ path('app_annonce_statistiques') }}" class="btn btn-secondary rounded-3 my-2 mx-1" style="position: absolute;  left: 177px;">Show statistiques</a>
+        <a href="{{ path('app_feedback') }}" class="btn btn-dark rounded-3 my-2 mx-1" style="position: absolute;  left: 332px;">Feedback</a>
+    </div>
 {% endblock %}

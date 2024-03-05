@@ -11,18 +11,24 @@ class Evenement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-
     #[ORM\Column]
     private ?int $id_evenement = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_deb = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date_fin = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type_e = null;
+    private ?string $description_e = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $titre_e = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $ville_e = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $maps_even = null;
 
     public function getIdEvenement(): ?int
     {
@@ -48,26 +54,51 @@ class Evenement
         return $this;
     }
 
-    public function getDateFin(): ?\DateTimeInterface
+
+    public function getDescriptionE(): ?string
     {
-        return $this->date_fin;
+        return $this->description_e;
     }
 
-    public function setDateFin(\DateTimeInterface $date_fin): static
+    public function setTypeE(string $description_e): static
     {
-        $this->date_fin = $date_fin;
+        $this->description_e = $description_e;
 
         return $this;
     }
 
-    public function getTypeE(): ?string
+    public function getTitreE(): ?string
     {
-        return $this->type_e;
+        return $this->titre_e;
     }
 
-    public function setTypeE(string $type_e): static
+    public function setTitreE(string $titre_e): static
     {
-        $this->type_e = $type_e;
+        $this->titre_e = $titre_e;
+
+        return $this;
+    }
+
+    public function getVilleE(): ?string
+    {
+        return $this->ville_e;
+    }
+
+    public function setVilleE(string $ville_e): static
+    {
+        $this->ville_e = $ville_e;
+
+        return $this;
+    }
+
+    public function getMapsEven(): ?string
+    {
+        return $this->maps_even;
+    }
+
+    public function setMapsEven(string $maps_even): static
+    {
+        $this->maps_even = $maps_even;
 
         return $this;
     }

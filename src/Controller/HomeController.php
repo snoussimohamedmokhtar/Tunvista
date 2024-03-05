@@ -11,8 +11,12 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
+        $showModal = true;
+        $showModal1 = false;
         return $this->render('base.html.twig', [
             'controller_name' => 'HomeController',
+            'showModal' => $showModal,
+            'showModal1' => $showModal1,
         ]);
     }
     #[Route('/locationVoiture', name: 'app_locationVoiture')]

@@ -24,7 +24,7 @@ class Location
     private ?\DateTimeInterface $date_fin = null;
 
     #[ORM\ManyToOne(inversedBy: 'location')]
-    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id_user')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
     private ?User $client = null;
 
     #[ORM\ManyToOne(inversedBy: 'location')]

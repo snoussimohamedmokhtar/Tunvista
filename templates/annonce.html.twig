@@ -137,7 +137,27 @@
     </div>
 </div>
 <!-- Navbar & Hero End -->
+<!-- Display the map using the provided API link -->
+<h1>Lieu d'annonce</h1>
+<div id="map" style="height: 400px;"></div>
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([36.9010594, 10.1876681], 13);
 
+    // Add the base map (e.g., OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker to the map
+    var {on, openPopup} = L.marker([36.9010594, 10.1876681]).addTo(map)
+        .bindPopup('<b>Tunvista</b><br>C\'est l\'emplacement de cet annonce.');
+
+    // Open the popup when marker is clicked
+    on('click', function() {
+        openPopup();
+    });
+</script>
 
 <!-- Destination Start -->
 <div class="container-xxl py-5 destination">
