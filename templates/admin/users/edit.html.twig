@@ -85,6 +85,12 @@
                     <i class="bi bi-person"></i>
                     <span>Users</span>
                 </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href={{ path('app_logout') }}>
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Logout</span>
+                </a>
             </li><!-- End Profile Page Nav -->
 
 
@@ -134,6 +140,15 @@
                     {#                        <span class="badge badge-secondary">{{ role }}</span>#}
                     {#                    {% endfor %}#}
                     {#                </div>#}
+                    {{ form_label(form.roles, 'Roles') }}
+                    <div class="form-check form-check-inline">
+                        {{ form_widget(form.roles.0, { 'label_attr': {'class': 'form-check-label'}, 'attr': {'class': 'form-check-input'} }) }}
+                        {{ form_label(form.roles.0, 'Admin', { 'label_attr': {'class': 'form-check-label'} }) }}
+                    </div>
+                    <div class="form-check form-check-inline">
+                        {{ form_widget(form.roles.1, { 'label_attr': {'class': 'form-check-label'}, 'attr': {'class': 'form-check-input'} }) }}
+                        {{ form_label(form.roles.1, 'User', { 'label_attr': {'class': 'form-check-label'} }) }}
+                    </div>
                     <div class="mb-3">
                         {{ form_label(form.plainPassword, 'Password') }}
                         {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control'}}) }}

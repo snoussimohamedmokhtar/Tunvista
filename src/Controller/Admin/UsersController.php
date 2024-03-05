@@ -9,7 +9,9 @@ use App\Form\UserUpdateFormType;
 use App\Repository\UserRepository;
 use App\Security\UserAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -17,19 +19,40 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use TCPDF;
 
+#[IsGranted("ROLE_ADMIN")]
 #[Route('/admin/Users',name:'admin_users_')]
 class UsersController extends AbstractController
 {
+    #[Route('/user-chart', name: 'user_chart')]
+    public function userChart(UserRepository $userRepository): Response
+    {
+        // Récupérer les utilisateurs avec leurs régions
+        $users = $userRepository->findAllWithRegion();
 
-//    #[Route('/', name: 'index')]
-//    public function index(UserRepository $userRepository): Response
-//    {
-//        $users = $userRepository->findBy([], [
-//            'firstName' => 'asc'
-//        ]);
-//        return $this->render('admin/users/index.html.twig', compact('users'));
-//    }
+        // Compter le nombre d'utilisateurs par région
+        $userCountByRegion = [];
+        foreach ($users as $user) {
+            $regionName = $user->getRegion() ? $user->getRegion()->getNom() : 'Unknown';
+            if (!isset($userCountByRegion[$regionName])) {
+                $userCountByRegion[$regionName] = 0;
+            }
+            $userCountByRegion[$regionName]++;
+        }
 
+        // Préparer les données pour le graphique
+        $labels = [];
+        $data = [];
+        foreach ($userCountByRegion as $region => $count) {
+            $labels[] = $region;
+            $data[] = $count;
+        }
+
+        // Rendre la vue et transmettre les données
+        return $this->render('admin/users/chart.html.twig', [
+            'labels' => json_encode($labels), // Convertir en JSON pour JavaScript
+            'data' => json_encode($data), // Convertir en JSON pour JavaScript
+        ]);
+    }
     #[Route('/', name: 'index')]
     public function index(Request $request, UserRepository $userRepository): Response
     {

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Chart{% endblock %}
+
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div style="width: 800px; height: 400px;">
+    <canvas id="userChart"></canvas>
+</div>
+
+<script>
+    // Récupérer les données transmises depuis le contrôleur
+    var labels = {{ labels|raw }};
+    var data = {{ data|raw }};
+
+    // Créer le graphique avec Chart.js
+    var ctx = document.getElementById('userChart').getContext('2d');
+    var userChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: JSON.parse(labels), // Convertir en objet JavaScript
+            datasets: [{
+                label: 'Nombre d\'utilisateurs par région',
+                data: JSON.parse(data), // Convertir en objet JavaScript
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
+
+{% endblock %}

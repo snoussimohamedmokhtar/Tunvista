@@ -141,7 +141,14 @@
                         <i class="bi bi-person"></i>
                         <span>Users</span>
                     </a>
-                </li><!-- End Profile Page Nav -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href={{ path('app_logout') }}>
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+                <!-- End Profile Page Nav -->
 
 
             </ul>
@@ -159,6 +166,8 @@
                         <h1>List of users</h1>
                         <a href="{{ path('admin_users_new') }}" class=" btn btn-lg btn-primary ">Add User</a>
                         <a href="{{ path('admin_users_pdf') }}" class=" btn btn-lg btn-secondary ">PDF</a>
+                        <a href="{{ path('user_chart') }}" class="btn btn-primary">Voir le graphique des utilisateurs par région</a>
+
 
 
                         <table class="table table-striped">
@@ -266,44 +275,9 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
-                            {#        <tbody>#}
-                            {#        <tr>#}
-                            {#            <th scope="row">1</th>#}
-                            {#            <td>Brandon Jacob</td>#}
-                            {#            <td>Designer</td>#}
-                            {#            <td>28</td>#}
-                            {#            <td>2016-05-25</td>#}
-                            {#        </tr>#}
-                            {#        <tr>#}
-                            {#            <th scope="row">2</th>#}
-                            {#            <td>Bridie Kessler</td>#}
-                            {#            <td>Developer</td>#}
-                            {#            <td>35</td>#}
-                            {#            <td>2014-12-05</td>#}
-                            {#        </tr>#}
-                            {#        <tr>#}
-                            {#            <th scope="row">3</th>#}
-                            {#            <td>Ashleigh Langosh</td>#}
-                            {#            <td>Finance</td>#}
-                            {#            <td>45</td>#}
-                            {#            <td>2011-08-12</td>#}
-                            {#        </tr>#}
-                            {#        <tr>#}
-                            {#            <th scope="row">4</th>#}
-                            {#            <td>Angus Grady</td>#}
-                            {#            <td>HR</td>#}
-                            {#            <td>34</td>#}
-                            {#            <td>2012-06-11</td>#}
-                            {#        </tr>#}
-                            {#        <tr>#}
-                            {#            <th scope="row">5</th>#}
-                            {#            <td>Raheem Lehner</td>#}
-                            {#            <td>Dynamic Division Officer</td>#}
-                            {#            <td>47</td>#}
-                            {#            <td>2011-04-19</td>#}
-                            {#        </tr>#}
-                            {#        </tbody>#}
                         </table>
+
+
 
                     </main>
                 </div>

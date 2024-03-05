@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -75,6 +76,19 @@ class UserFormType extends AbstractType
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'form-control'
+                ]
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Roles',
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
+                    // Ajoutez d'autres rôles au besoin
+                ],
+                'multiple' => true, // Permettre à l'utilisateur de sélectionner plusieurs rôles
+                'expanded' => true, // Afficher les rôles sous forme de cases à cocher
+                'attr' => [
+                    'class' => 'form-check-input custom-class'
                 ]
             ])
             ->add('ville', TextType::class, [

@@ -61,3 +61,19 @@ app_reset_password:
   path: /reset-password/reset/{token}
   controller: 'App\Controller\ResetPasswordController::reset'
   methods: ['GET', 'POST']
+
+github_connect:
+  path: '/connect/github'
+  controller: 'App\Controller\SecurityController::connect'
+  methods: ['GET', 'POST']
+
+oauth_check:
+  path: /oauth/check/{service}
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
+
+user_chart:
+  path: /user-chart
+  controller: 'App\Controller\Admin\UsersController::userChart'
+  methods: ['GET']
+
+

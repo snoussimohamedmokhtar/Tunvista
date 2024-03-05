@@ -15,4 +15,6 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     SymfonyCasts\Bundle\ResetPassword\SymfonyCastsResetPasswordBundle::class => ['all' => true],
     VictorPrdh\RecaptchaBundle\RecaptchaBundle::class => ['all' => true],
+    KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle::class => ['all' => true],
+    Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
 ];

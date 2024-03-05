@@ -43,6 +43,10 @@
                     <input type="hidden" name="_csrf_token"
                            value="{{ csrf_token('authenticate') }}"
                     >
+                    <p>
+                        <a href="{{ path('github_connect') }}">connecter avec github</a>
+                        <i class="bi bi-github"></i>
+                    </p>
                     <button class="btn btn-lg btn-primary mt-3" type="submit">
                         Sign in
                     </button>

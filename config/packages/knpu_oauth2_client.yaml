@@ -1,0 +1,11 @@
+knpu_oauth2_client:
+    clients:
+        github:
+            type: github
+            client_id: 0980b7d5bd87a736341a
+            client_secret: 2101a93c2c23a698d6fecc2756aede1ed220a9bb
+            redirect_route: oauth_check
+            redirect_params:
+                service: github
+
+        # configure your clients as described here: https://github.com/knpuniversity/oauth2-client-bundle#configuration

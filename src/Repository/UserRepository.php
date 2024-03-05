@@ -76,4 +76,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getResult();
 
     }
+
+    public function findAllWithRegion()
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.region', 'r')
+            ->addSelect('r')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -141,6 +141,19 @@ class UserUpdateFormType extends AbstractType
 //                'required' => true, // Définissez à true si le champ est obligatoire
 //            ])
 
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Roles',
+                'choices' => [
+                    'Admin' => 'ROLE_ADMIN',
+                    'User' => 'ROLE_USER',
+                    // Ajoutez d'autres rôles au besoin
+                ],
+                'multiple' => true, // Permettre à l'utilisateur de sélectionner plusieurs rôles
+                'expanded' => true, // Afficher les rôles sous forme de cases à cocher
+                'attr' => [
+                    'class' => 'form-check-input custom-class'
+                ]
+            ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -151,12 +164,12 @@ class UserUpdateFormType extends AbstractType
                     'class' => 'form-control'
                 ],
 
-                'constraints' => [
-                    new Regex('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$~',
-                        "Password should be Minimum eight in length One Upper case, one lower case, one digit, one special character"
-
-                    ),
-                ],
+//                'constraints' => [
+//                    new Regex('~^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$~',
+//                        "Password should be Minimum eight in length One Upper case, one lower case, one digit, one special character"
+//
+//                    ),
+//                ],
             ])
         ;
 //        $builder->get('roles')

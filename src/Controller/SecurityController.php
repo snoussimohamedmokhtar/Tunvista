@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +26,13 @@ class SecurityController extends AbstractController
                 'last_username' => $lastUsername,
                 'error' => $error
             ]);
+    }
+
+    #[Route(path: '/connect/github', name: 'github_connect')]
+    public function connect(ClientRegistry $clientRegistry): \Symfony\Component\HttpFoundation\RedirectResponse
+    {
+             $client = $clientRegistry->getClient('github');
+             return $client ->redirect(['read:user','user:email']);
     }
 
     #[Route(path: '/logout', name: 'app_logout')]
