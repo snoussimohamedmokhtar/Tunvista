@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Voiture{% endblock %}
 
@@ -16,7 +16,7 @@
                 <td>{{ voiture.marque }}</td>
             </tr>
             <tr>
-                <th>Annee</th>
+                <th>Date start</th>
                 <td>{{ voiture.annee ? voiture.annee|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>

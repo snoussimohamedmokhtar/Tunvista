@@ -9,7 +9,7 @@
         .cool-link {
             display: inline-block;
             padding: 10px 20px;
-            background-color: rgba(0, 0, 0, 0.72); /* Nature green color */
+            background-color: rgb(110, 160, 69); /* Nature green color */
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -18,11 +18,14 @@
 
         /* Hover effect */
         .cool-link:hover {
-            background-color: #a04545; /* Lighter green color on hover */
+            background-color: #51a045; /* Lighter green color on hover */
         }
     </style>
 
     {{ include('location/_form.html.twig') }}
 
-    <a href="{{ path('app_location_index') }}" class="cool-link">back to list</a>
+    <!--
+<a href="{{ path('app_location_index') }}" class="cool-link">back to list</a>
+-->
+
 {% endblock %}

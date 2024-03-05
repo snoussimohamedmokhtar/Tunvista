@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Voiture index{% endblock %}
 
@@ -10,7 +10,7 @@
             <tr>
                 <th>Id_voiture</th>
                 <th>Marque</th>
-                <th>Annee</th>
+                <th>date start</th>
                 <th>Prix_j</th>
                 <th>actions</th>
             </tr>
@@ -36,4 +36,50 @@
     </table>
 
     <a href="{{ path('app_voiture_new') }}">Create new</a>
+
+
+    <br>
+    <br>
+    <br>
+        <h1>Statistiques des prix par marque de voiture</h1>
+        <canvas id="myChart" width="400" height="400"></canvas>
+
+        {% block javascripts %}
+            <script>
+                var labels = [];
+                var prices = [];
+
+                {% for voiture in voitures %}
+                labels.push('{{ voiture.marque }}');
+                prices.push('{{ voiture.prixJ }}');
+                {% endfor %}
+            </script>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Prix (en €)',
+                            data: prices,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
+        {% endblock %}
+
+
+
 {% endblock %}

@@ -29,6 +29,7 @@
         <link href="lib/animate/animate.min.css" rel="stylesheet">
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
         <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -51,6 +52,8 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
+
+        <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     {% endblock %}
 </head>
 <body>
@@ -183,8 +186,57 @@
     </div>
 </div>
 <div>
-    <iframe src="{{ path('app_location_index') }}" width="1500" height="400" frameborder="0"></iframe>
+    <iframe src="{{ path('app_location_new') }}" width="1500" height="400" frameborder="0"></iframe>
+    <br>
+    <br>
+    <button id="toggle-chat-button" style="position: fixed; bottom: 20px; right: 20px; background-color: #007bff; color: #fff; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;">Toggle Chat</button>
+
+    <div id="chat-container" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 500px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f0f0f0;">
+        <iframe id="chat-iframe" style="width: 100%; height: calc(100% - 40px); border: none;" allow="microphone;" src="https://console.dialogflow.com/api-client/demo/embedded/ea56c0ca-8b9c-4057-a263-8c10ddd6ecdd"></iframe>
+        <div style="position: absolute; bottom: 0; width: 100%; background-color: rgba(0, 0, 0, 0.6); color: #fff; padding: 10px;">
+            <p style="margin: 0; text-align: center;">Chat with our AI assistant</p>
+        </div>
+        <div style="position: absolute; top: 10px; right: 10px;">
+            <button id="close-button" style="background-color: #007bff; color: #fff; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Close</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('toggle-chat-button').addEventListener('click', function() {
+            var chatContainer = document.getElementById('chat-container');
+            if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
+                chatContainer.style.display = 'block';
+            } else {
+                chatContainer.style.display = 'none';
+            }
+        });
+
+        document.getElementById('close-button').addEventListener('click', function() {
+            document.getElementById('chat-container').style.display = 'none';
+        });
+    </script>
+    <h1>Emplacement de Guarage</h1>
+    <div id="map" style="height: 400px;"></div>
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([36.9010594, 10.1876681], 13);
+
+        // Add the base map (e.g., OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Add a marker to the map
+        var marker = L.marker([36.9010594, 10.1876681]).addTo(map)
+            .bindPopup('<b>Tunvista</b><br>Chez Tunvista, nous nous engageons à offrir une expérience de location de voitures exceptionnelle à nos clients. Avec notre large sélection de véhicules de qualité et notre service clientèle hautement qualifié.');
+
+        // Open the popup when marker is clicked
+        marker.on('click', function() {
+            marker.openPopup();
+        });
+    </script>
+
 </div>
+
 <!-- Destination Start -->
 
 

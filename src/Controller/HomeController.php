@@ -29,4 +29,11 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    #[Route('/back', name: 'app_back')]
+    public function back(): Response
+    {
+        return $this->render('back.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }

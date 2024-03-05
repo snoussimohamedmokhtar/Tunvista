@@ -1,24 +1,56 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Location index{% endblock %}
 
 {% block body %}
+
     <h1>Table Des Locations</h1>
+    <form action="{{ path('recherche_par_id_location') }}" method="GET">
+        <input type="text" name="id_location" placeholder="ID Location">
+        <button type="submit">Rechercher</button>
+    </form>
     <style>
         /* Style for the link */
         .cool-link {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #4CAF50; /* Nature green color */
+            background-color: #4CAF50; /* Couleur verte naturelle */
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            transition: background-color 0.3s; /* Transition effect for hover */
+            transition: background-color 0.3s; /* Effet de transition au survol */
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); /* Ombre */
         }
 
-        /* Hover effect */
+        /* Effet de survol */
         .cool-link:hover {
-            background-color: #45a049; /* Lighter green color on hover */
+            background-color: #45a049; /* Couleur verte naturelle plus claire au survol */
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); /* Ombre plus prononcée au survol */
+        }
+        /* Style de base du bouton */
+        .btn-download-pdf {
+            background-color: #0e55dc; /* Couleur verte naturelle */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s; /* Durée de la transition au survol */
+            cursor: pointer;
+            border-radius: 8px; /* Bords arrondis */
+        }
+
+        /* Effet d'ombre au survol */
+        .btn-download-pdf:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        /* Effet de changement de couleur au survol */
+        .btn-download-pdf:hover {
+            background-color: #0e2fbe; /* Couleur verte naturelle plus foncée */
         }
     </style>
 
@@ -54,6 +86,14 @@
         </tbody>
     </table>
 
-
     <a href="{{ path('app_location_new') }}" class="cool-link">Create new</a>
+    
+    <br>
+    <br>
+    <br>
+    <a href="{{ path('app_location_tri') }}" class="btn-download-pdf">Trier par date croissante</a>
+    <br>
+    <a href="{{ path('app_location_pdf') }}" class="btn-download-pdf">Télécharger le PDF</a>
+
+
 {% endblock %}

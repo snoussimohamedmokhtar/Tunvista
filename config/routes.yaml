@@ -1,3 +1,8 @@
 #index:
 #    path: /author/{name}
 #    controller: App\Controller\AuthorController::showAuthor
+# config/routes.yaml
+app_location_tri:
+  path: /tri
+  controller: App\Controller\LocationController::sortedList
+  methods: ['GET', 'POST']

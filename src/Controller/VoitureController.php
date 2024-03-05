@@ -78,4 +78,15 @@ class VoitureController extends AbstractController
 
         return $this->redirectToRoute('app_voiture_index', [], Response::HTTP_SEE_OTHER);
     }
+    #[Route('/stats', name: 'app_voiture_stats')]
+    public function stats(): Response
+    {
+        $voitures = $this->getDoctrine()->getRepository(Voiture::class)->findAll();
+
+        // Traitement des données pour le graphique
+
+        return $this->render('voiture/stats.html.twig', [
+            'voitures' => $voitures,
+        ]);
+    }
 }
