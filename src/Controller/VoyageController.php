@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Voyage;
 use App\Form\VoyageType;
 use App\Repository\VoyageRepository;
+use App\Service\QrCodeGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -119,10 +120,32 @@ class VoyageController extends AbstractController
     // Other methods in the controller...
 
 #[Route('/{id}', name: 'app_voyage_show', methods: ['GET'])]
-    public function show(Voyage $voyage): Response
+    public function show(Voyage $voyage, VoyageRepository $voyageRepository, QrCodeGenerator $qrCodeGenerator): Response
     {
+        $qrCodes = [];
+        $voyages = $voyageRepository->findAll();
+        foreach ($voyages as $voyage) {
+            $user = $voyage->getId();
+            $qrCode = $qrCodeGenerator->createQrCode($voyage);
+            $qrCodes[$voyage->getId()] = $qrCode->getString();
+        }
         return $this->render('voyage/show.html.twig', [
             'voyage' => $voyage,
+            'qrCodes' => $qrCodes,
+        ]);
+    }
+    #[Route('/front/{id}', name: 'app_voyage_front_show', methods: ['GET'])]
+    public function showfront(Voyage $voyage, VoyageRepository $voyageRepository, QrCodeGenerator $qrCodeGenerator): Response
+    {
+
+
+
+        // Generate QR code for each annonce's user and store it in $qrCodes array
+
+
+        return $this->render('voyage/showfront.html.twig', [
+            'voyage' => $voyage,
+
         ]);
     }
 

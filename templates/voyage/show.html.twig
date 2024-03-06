@@ -49,4 +49,14 @@
     <a href="{{ path('app_voyage_edit', {'id': voyage.id}) }}">edit</a>
 
     {{ include('voyage/_delete_form.html.twig') }}
+    <div class="col-md-6">
+        <div class="text-center">
+            {% if qrCodes[voyage.getId] is defined %}
+                {{ qrCodes[voyage.getId] | raw }}
+            {% else %}
+                QR Code not available
+            {% endif %}
+        </div>
+    </div>
+
 {% endblock %}

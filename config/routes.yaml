@@ -1,8 +1,51 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-# Example of defining the route for search functionality in routes.yaml
+
+# config/routes.yaml
+
+# Routes pour le contrôleur VoyageController
+app_voyage_index:
+  path: /voyage
+  controller: 'App\Controller\VoyageController::index'
+  methods: ['GET']
+
+app_voyage_index_front:
+  path: /voyage/app_voyage_index_front
+  controller: 'App\Controller\VoyageController::index_front'
+  methods: ['GET']
+
+app_voyage_new:
+  path: /voyage/new
+  controller: 'App\Controller\VoyageController::new'
+  methods: ['GET', 'POST']
+
+app_voyage_show:
+  path: /voyage/{id}
+  controller: 'App\Controller\VoyageController::show'
+  methods: ['GET']
+
+app_voyage_front_show:
+  path: /voyage/front/{id}
+  controller: 'App\Controller\VoyageController::showfront'
+  methods: ['GET']
+
+app_voyage_edit:
+  path: /voyage/{id}/edit
+  controller: 'App\Controller\VoyageController::edit'
+  methods: ['GET', 'POST']
+
+app_voyage_delete:
+  path: /voyage/{id}
+  controller: 'App\Controller\VoyageController::delete'
+  methods: ['POST']
+
+voyage_generate_pdf:
+  path: /voyage/{id}/generate-pdf
+  controller: 'App\Controller\VoyageController::generatePdf'
+  methods: ['GET']
+
 app_voyage_search:
-  path: /search
-  controller: App\Controller\VoyageController::search
-  methods: [GET]
+  path: /voyage/search
+  controller: 'App\Controller\VoyageController::search'
+  methods: ['GET']

@@ -4,38 +4,38 @@
 
 {% block body %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Tourist - Travel Agency HTML Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <head>
+        <meta charset="utf-8">
+        <title>Tourist - Travel Agency HTML Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
-</head>
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
 
-<body>
+    <body>
 
     <!-- Spinner End -->
 
@@ -121,39 +121,49 @@
                 <h6 class="section-title bg-white text-center text-primary px-3">Voyage Organisée</h6>
                 <h1 class="mb-5">Nos voyages en groupe</h1>
             </div>
-            <div class="row g-4 justify-content-center">
-                {% for voyage in voyages %}
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="package-item">
-                        <div class="overflow-hidden">
-                            <img src="{{ asset('/uploads/' ~ voyage.image) }}" style="max-width: 300px; max-height: 100px;">
-                        </div>
-                        <div class="d-flex border-bottom">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-map-marker-alt text-primary me-2"></i>{{ voyage.Destination }}</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-calendar-alt text-primary me-2"></i>{{ voyage.DateArrive ? voyage.DateDepart|date('Y-m-d') : '' }}</small>
-                        </div>
-                        <div class="text-center p-4">
-                            <h3 class="mb-0">{{ voyage.Prix }} DT</h3>
+            <h1>Voyage</h1>
 
-                            <p>{{ voyage.Programme }}</p>
-                            <div class="d-flex justify-content-center mb-2">
-                                <a href="{{ path('app_voyage_front_show', {'id': voyage.id}) }}" class="btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Book Now</a>
+            <table class="table">
+                <tbody>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+                <tr>
+                    <th>Programme</th>
+                    <td>{{ voyage.Programme }}</td>
+                </tr>
+                <tr>
+                    <th>DateDepart</th>
+                    <td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
+                </tr>
 
-            </div>
-        </div>
+                <tr>
+                    <th>DateArrive</th>
+                    <td>{{ voyage.DateArrive ? voyage.DateArrive|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Destination</th>
+                    <td>{{ voyage.Destination }}</td>
+                </tr>
+
+                <tr>
+                    <th>Prix</th>
+                    <td>{{ voyage.Prix }}</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td> {% if voyage.image %}
+                            <img src="{{ asset('/uploads/' ~ voyage.image) }}"  style="max-width: 100px; max-height: 100px;">
+                        {% else %}
+                            Aucune image disponible
+                        {% endif %}</td>
+                </tr>
+                </tbody>
+            </table>        </div>
     </div>
     <!-- Package End -->
 
 
-     <!-- Booking Start -->
-     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <!-- Booking Start -->
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="booking p-5">
                 <div class="row g-5 align-items-center">
@@ -181,7 +191,7 @@
 
 
                                 </div>
-                                 <div class="col-md-6">
+                                <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="prenom" class="form-control bg-transparent" id="prenom" placeholder="Prenom">
                                         <label for="prenom">Prenom</label>
@@ -313,130 +323,10 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
-</body>
+    </body>
 
-</html>
+    </html>
 
- <!--
-    <h1>Voyage index</h1>
-    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;align-items:center">
-
-    </div>
-
-
-    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
-
-    <table class="table table-striped table-bordered" id="VoyageTable">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Programme</th>
-            <th>DateDepart</th>
-            <th>DateArrive</th>
-            <th>Distination</th>
-            <th>Image</th>
-            <th>Prix</th>
-            <th>actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for voyage in voyages %}
-            <tr>
-                <td>{{ voyage.id }}</td>
-                <td>{{ voyage.Programme }}</td>
-                <td>{{ voyage.DateDepart ? voyage.DateDepart|date('Y-m-d') : '' }}</td>
-                <td>{{ voyage.DateArrive ? voyage.DateArrive|date('Y-m-d') : '' }}</td>
-                <td>{{ voyage.Destination }} $</td>
-                <td>                        <img src="{{ asset('/uploads/' ~ voyage.image) }}"  style="max-width: 100px; max-height: 100px;">
-                </td>
-                <td>{{ voyage.Prix }}</td>
-
-                <td>
-                    <a href="{{ path('app_voyage_show', {'id': voyage.id}) }}" class="btn btn-primary" style="border-radius: 10px;">show</a>
-                    <a href="{{ path('app_voyage_edit', {'id': voyage.id}) }}" class="btn btn-warning" style="border-radius: 10px;">edit</a>
-                    <a href="{{ path('app_voyage_edit', {'id': voyage.id}) }}" class="btn btn-danger" style="border-radius: 10px;">Delete</a>
-                    <a href="{{ path('voyage_generate_pdf', { 'id': voyage.id }) }}" class="btn btn-primary">Download PDF</a>
-
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-
-    <div class="text-center">
-        <a href="{{ path('app_voyage_new') }}" class="btn btn-success" style="border-radius: 10px;"><span class="bi bi-cart-plus"></span> Create new</a>
-
-    </div>
-    {# Manual pagination controls #}
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            {% if currentPage > 1 %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ path('app_voyage_index', {'page': currentPage - 1}) }}">Previous</a>
-                </li>
-            {% endif %}
-
-            {% for page in 1..totalPages %}
-                <li class="page-item{% if page == currentPage %} active{% endif %}">
-                    <a class="page-link" href="{{ path('app_voyage_index', {'page': page}) }}">{{ page }}</a>
-                </li>
-            {% endfor %}
-
-            {% if currentPage < totalPages %}
-                <li class="page-item">
-                    <a class="page-link" href="{{ path('app_voyage_index', {'page': currentPage + 1}) }}">Next</a>
-                </li>
-            {% endif %}
-        </ul>
-    </nav>
-
-    <script>
-        // Function to send AJAX request for search
-        function search() {
-            var query = document.getElementById('searchInput').value;
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '{{ path('app_voyage_search') }}?q=' + query, true);
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    updateTable(response);
-                }
-            };
-            xhr.send();
-        }
-
-        // Function to update the table with search results
-        function updateTable(data) {
-            var tableBody = document.querySelector('tbody');
-            tableBody.innerHTML = ''; // Clear existing table rows
-            if (data.length > 0) {
-                data.forEach(function (voyage) {
-                    var row = '<tr>';
-                    row += '<td>' + voyage.Programme + '</td>';
-                    row += '<td>' + voyage.Prix + '</td>';
-                    row += '<td>' + voyage.DateDepart + '</td>';
-                    row += '<td>' + voyage.DateArrive + '</td>';
-
-                    row += '</tr>';
-                    tableBody.innerHTML += row;
-                });
-            } else {
-                tableBody.innerHTML = '<tr><td colspan="8" class="text-center">No records found</td></tr>';
-            }
-        }
-
-        // Event listener for the search input
-        document.getElementById('searchInput').addEventListener('input', function () {
-            search();
-        });
-    </script>
-
-    -->
 {% endblock %}
 
 

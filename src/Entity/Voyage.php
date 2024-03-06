@@ -15,7 +15,7 @@ class Voyage
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer')] // Specify the column type as 'integer'
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -46,6 +46,7 @@ class Voyage
     public function __construct()
     {
         $this->Voyagee = new ArrayCollection();
+
     }
 
     public function getId(): ?int
