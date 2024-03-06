@@ -87,7 +87,7 @@ class MaisonType extends AbstractType
                 
             ])
         ;
-    }
+    } 
 
     public function configureOptions(OptionsResolver $resolver): void
     {

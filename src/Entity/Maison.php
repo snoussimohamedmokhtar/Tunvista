@@ -144,7 +144,7 @@ class Maison
         return $this;
     }
     public function __toString() {
-        return  $this->nom. ' ' . $this->adresse. ' '.$this->nombreChambre .' ('.$this->prix.' )';
+        return  $this->refB. ' ' . $this->nom. ' ' . $this->adresse. ' ' . $this->nombreChambre. ' ' . $this->prix. ' '. $this->type .' ('.$this->image.' )';
     }
 
     public function getImage(): ?string

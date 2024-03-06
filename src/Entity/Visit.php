@@ -31,6 +31,7 @@ class Visit
     #[ORM\JoinColumn(name: 'refB',referencedColumnName:'ref_b')]
     private ?Maison $refB = null;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -102,4 +103,5 @@ class Visit
 
         return $this;
     }
+
 }

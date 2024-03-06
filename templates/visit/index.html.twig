@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block title %}Visit index{% endblock %}
 
@@ -7,14 +7,31 @@
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Numero</th>
-                <th>Nom</th>
-                <th>Email</th>
-                <th>Date_visite</th>
-                <th>actions</th>
-            </tr>
+            <button id="app_maison_pdf" class="btn btn-warning">Générer PDF</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" style="color: rgb(46, 149, 204);">Id</th>
+                        <th scope="col"  style="color: rgb(46, 149, 204);">Numero   
+                            <button type="button" id="sort-by-name-asc" class="icon"><i class="fas fa-sort-up"></i></button>
+                            <button type="button" id="sort-by-name-desc" class="icon"><i class="fas fa-sort-down"></i></button> 
+                        </th>
+                        <th scope="col"  style="color: rgb(46, 149, 204);">Nom
+                            <button type="button" id="sort-by-adresse-asc" class="icon"><i class="fas fa-sort-up"></i></button>
+                            <button type="button" id="sort-by-adresse-desc" class="icon"><i class="fas fa-sort-down"></i></button>
+                        </th>
+                        <th scope="col" style="color: rgb(46, 149, 204);" >Email
+                            <button type="button" id="sort-by-nbrChambre-asc" class="icon"><i class="fas fa-sort-up"></i></button>
+                            <button type="button" id="sort-by-nbrChambre-desc" class="icon"><i class="fas fa-sort-down"></i></button>
+                        </th>
+                        <th scope="col" style="color: rgb(46, 149, 204);">Date_visite 
+                            <button type="button" id="sort-by-price-asc" class="icon"><i class="fas fa-sort-up"></i></button>
+                            <button type="button" id="sort-by-price-desc" class="icon"><i class="fas fa-sort-down"></i></button>
+                        </th>
+                        <th style="color: rgb(46, 149, 204);">actions</th>
+                    </tr>
+           
         </thead>
         <tbody>
         {% for visit in visits %}
@@ -27,6 +44,8 @@
                 <td>
                     <a href="{{ path('app_visit_show', {'id': visit.getId()}) }}">show</a>
                     <a href="{{ path('app_visit_edit', {'id': visit.getId()}) }}">edit</a>
+                    <a href="{{ path('mailing', {'id': visit.getId})}}" class ="btn btn-success"><strong>send Confirmation visite </strong></a>
+
                 </td>
             </tr>
         {% else %}
@@ -36,6 +55,83 @@
         {% endfor %}
         </tbody>
     </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables library -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- DataTables Initialization Script -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables library -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+<!-- DataTables Initialization Script -->
+<script>
+  $(document).ready(function () {
+    $('#dataTable').DataTable({
+      "initComplete": function (settings, json) {
+        // Customize the search input field
+        var searchInput = $('#dataTable_filter input[type="search"]');
+        searchInput.addClass('form-control');
+        searchInput.attr('placeholder', 'Search...'); // Set placeholder text
+      }
+    });
+  });
+
+</script>
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-11 offset-lg-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Bar Chart - visits per Maison</h5>
+
+
+                        <!-- Bar Chart -->
+                        <canvas id="barChart" style="max-height: 400px;"></canvas>
+                        <script>
+                            document.addEventListener("DOMContentLoaded", () => {
+                                // Extract pharmacy names and ordonnance counts from PHP data
+                                const maisons = [];
+                                const visitCounts = [];
+                                {% for maison, count in visitsPerMaison %}
+                                    maisons.push("{{ maison }}");
+                                    visitCounts.push({{ count }});
+                                {% endfor %}
+
+                                // Create Bar Chart
+                                new Chart(document.querySelector('#barChart'), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: maisons,
+                                        datasets: [{
+                                            label: 'visits per Maison',
+                                            data: visitCounts,
+                                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                            borderColor: 'rgb(75, 192, 192)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        scales: {
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                        <!-- End Bar Chart -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     
 {% endblock %}

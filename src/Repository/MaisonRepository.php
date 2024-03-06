@@ -20,6 +20,14 @@ class MaisonRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Maison::class);
     }
+    public function rechercheParNom($nom)
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.nom LIKE :nom')
+            ->setParameter('nom', $nom.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Maison[] Returns an array of Maison objects

@@ -21,6 +21,18 @@ class VisitRepository extends ServiceEntityRepository
         parent::__construct($registry, Visit::class);
     }
 
+    public function isDateAvailable(\DateTime $date): bool
+    {
+        $count = $this->createQueryBuilder('v')
+            ->select('COUNT(v)')
+            ->andWhere('v.dateVisit = :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $count === 0;
+    }
+
 //    /**
 //     * @return Visit[] Returns an array of Visit objects
 //     */

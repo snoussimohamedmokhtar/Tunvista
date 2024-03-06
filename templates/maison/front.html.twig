@@ -2,34 +2,73 @@
 
 {% block body %}
 
-    <div class="service">
-        <div class="container">
-            <div class="section-header text-center">
-                <div id="google_translate_element"></div>
-                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Maisons</h4>
+<div class="service">
+    <div class="container">
+        <div class="section-header text-center">
+            <h4 style="margin-top:50px; margin-bottom:50px;">Liste des Maisons</h4>
+        </div>
+  
+        <form method="GET">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="filterType" class="form-label">Filtrer par Type:</label>
+                    <select class="form-select" id="filterType" name="type">
+                        <option value="">Tous les types</option>
+                        <option value="Villa">Villa</option>
+                        <option value="Appartement">Appartement</option>
+                        <option value="Studio">Studio</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="filterPrice" class="form-label">Filtrer par Prix:</label>
+                    <select class="form-select" id="filterPrice" name="price">
+                        <option value="">Tous les prix</option>
+                        <option value="800">Moins de 800 dinars</option>
+                        <option value="1500">Moins de 1500 dinars</option>
+                    </select>
+                </div>
+                <div class="col align-self-end">
+                    <button type="submit" class="btn btn-primary">Filtrer</button>
+                </div>
             </div>
-            <div class="row">
-                {% for maison in maisons %}
+        </form>
+        
+        <div class="row">
+            {% for maison in maisons %}
+                <!-- Vérifier les filtres -->
+                {% if (app.request.query.get('type') is null or app.request.query.get('type') == maison.type) and
+                      (app.request.query.get('prix') is null or maison.prix <= app.request.query.get('prix')) %}
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="service-item">
-                            <img src="{{ asset('uploads/' ~ maison.image)}}" style="width:360px; height:250px;" alt="">
+                            <a href="{{ path('app_maison_show', {'refB': maison.refB}) }}">
+                                <img src="{{ asset('uploads/' ~ maison.image)}}" style="width:360px; height:250px;" alt="">
+                            </a>
                             <center><h2>{{ maison.nom }}</h2></center>
                             <p><strong style="color:#696969">Type:</strong> {{ maison.type }}</p>
-                            <p><strong style="color:#696969">Adresse:</strong> {{ maison.adresse }}</p>
                             <p><strong style="color:#696969">Nombre de Chambres:</strong> {{ maison.nombreChambre }}</p>
-                            <p><strong style="color:#696969">Prix:</strong> {{ maison.prix }}</p>
-                            
-                                <center><a href="{{ path('app_visit_new', {'refB': maison.refB}) }}" class="btn btn-primary">Planifier une Visite</a></center>
-                          
+                            <p><strong style="color:#696969">Prix:</strong> {{ maison.prix }} dinars</p>
+                            <center>
+                                <a href="{{ path('app_visit_new', {'refB': maison.refB}) }}" class="btn btn-primary">Planifier une Visite</a></center>
+                                <a href="{{ path('app_bot') }}" class="btn btn-primary" >espace bot</a>
+    
+
                             <br>
                             <br>
+
+                           
                         </div>
                     </div>
-             
-                {% endfor %}
-            </div>
+                {% endif %}
+            {% else %}
+                <div class="col">
+                    <p class="text-center">Aucun maison trouvé.</p>
+                </div>
+            {% endfor %}
         </div>
     </div>
-    <br>
-    
+</div>
+
+
+<br>
+
 {% endblock %}

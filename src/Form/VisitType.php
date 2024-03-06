@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\Length;
 
 class VisitType extends AbstractType
@@ -31,10 +32,12 @@ class VisitType extends AbstractType
         ])
         ->add('Numero', null, [
             'constraints' => [
-                new Assert\NotBlank(),
-                new Assert\Type(['type' => 'numeric']),
-                new Assert\Length(['max' => 255,
-                'message' => 'Le numero doit contenir 8 chiffre.']),
+                new NotBlank(),
+                new Length([
+                    'min' => 8,
+                    'max' => 8,
+                    'exactMessage' => 'Le numéro de téléphone doit comporter exactement 8 chiffres.'
+                ])
             ],
         ])
         ->add('nom', null, [
