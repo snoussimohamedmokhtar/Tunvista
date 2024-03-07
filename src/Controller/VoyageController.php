@@ -245,12 +245,14 @@ class VoyageController extends AbstractController
 
         $formattedResults = [];
         foreach ($results as $result) {
-            // Format results as needed
+
             $formattedResults[] = [
                 'Programme' => $result->getProgramme(),
-                'Prix' => $result->getPrix(),
+               // 'Prix' => $result->getPrix(),
+                'DateDepart' => $result->getDateDepart(),
+                'DateArrive' => $result->getDateArrive(),
 
-                // Add other fields as needed
+
             ];
         }
 
@@ -259,3 +261,4 @@ class VoyageController extends AbstractController
 
 
 }
+

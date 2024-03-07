@@ -36,11 +36,8 @@ class MailerController extends AbstractController
 
         $email = (new Email())
             ->from('kharrat.raed@esprit.tn')
-            ->to('eya.ali@esprit.tn')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
+            ->to($voyageur->getEmail())
+
             ->subject('Confirmation voyage')
             ->text('Sending emails is fun again!')
             ->text($emailContent);

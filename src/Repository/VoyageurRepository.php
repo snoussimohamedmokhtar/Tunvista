@@ -24,7 +24,7 @@ class VoyageurRepository extends ServiceEntityRepository
     public function findAllAscending(string $criteria): array
     {
         return $this->createQueryBuilder('v')
-            ->orderBy($criteria, 'ASC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->orderBy($criteria, 'ASC')
             ->getQuery()
             ->getResult();
     }
@@ -32,7 +32,7 @@ class VoyageurRepository extends ServiceEntityRepository
     public function findAllDescending(string $criteria): array
     {
         return $this->createQueryBuilder('v')
-            ->orderBy($criteria, 'DESC') // Replace 'fieldToSortBy' with the actual field name you want to sort by
+            ->orderBy($criteria, 'DESC')
             ->getQuery()
             ->getResult();
     }
