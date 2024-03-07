@@ -58,4 +58,25 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getQuery()
            ->getResult();
    }
+
+
+
+   public function getClaimPercentageByType(): array
+    {
+        $claimCounts = $this->createQueryBuilder('r')
+            ->select('COUNT(r.id) as claimCount, r.type')
+            ->groupBy('r.type')
+            ->getQuery()
+            ->getResult();
+
+        $totalCount = array_sum(array_column($claimCounts, 'claimCount'));
+
+        $percentageByType = [];
+        foreach ($claimCounts as $claim) {
+            $percentage = ($claim['claimCount'] / $totalCount) * 100;
+            $percentageByType[$claim['type']] = round($percentage, 2);
+        }
+
+        return $percentageByType;
+    }
 }

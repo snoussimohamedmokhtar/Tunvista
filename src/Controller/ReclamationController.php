@@ -15,6 +15,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Psr\Log\LoggerInterface;
 
 
+
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
 {
@@ -39,7 +40,7 @@ class ReclamationController extends AbstractController
         $reclamation = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1), // Current page number
-            3 // Number of items per page
+            5 // Number of items per page
         );
         if ($request->isXmlHttpRequest()) {
                 $paginationHtml = $this->renderView('reclamation/_paginator.html.twig', ['reclamations' => $reclamation]);
@@ -82,7 +83,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
         // Add success flash message
         $this->addFlash('success', 'Your reclamation has been successfully submitted.');
 
-        return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_reclamation_new', [], Response::HTTP_SEE_OTHER);
     }
 
     return $this->render('reclamation/new.html.twig', [
@@ -127,5 +128,21 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
 
         return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    /**
+     * @Route("/reclamation/statistics", name="reclamation_statistics")
+     */
+    public function statistics(ReclamationRepository $reclamationRepository): Response
+    {
+        $claimStatistics = $reclamationRepository->getClaimPercentageByType();
+
+        return $this->render('reclamation/statistics.html.twig', [
+            'claimStatistics' => $claimStatistics,
+        ]);
+    }
+
+
+  
 
 }

@@ -119,6 +119,11 @@
     <script src={{asset('Front/js/main.js')}}></script>
 
 
+
+
+
+
+
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -199,6 +204,48 @@
         </div>
     </div>
     <!-- Footer End -->
+
+
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: '',
+                response: ''
+            },
+            methods: {
+                sendMessage() {
+                    // Send message to backend
+                    fetch('/chat/message/send', {
+                        method: 'POST',
+                        body: JSON.stringify({ message: this.message }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // If message sent successfully, receive response
+                            return fetch('/chat/message/receive')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update response
+                        this.response = data.message;
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+        });
+    </script>
+
+
+
+
 
 
     <!-- Back to Top -->

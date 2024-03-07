@@ -62,6 +62,7 @@ public function findByExampleField($value): array
     {
        return $this->createQueryBuilder('r')
             ->andWhere('r.id LIKE :val')
+            ->orWhere('r.iduser LIKE :val')
             ->setParameter('val', '%' . $value . '%')
             ->getQuery()
            ->getResult();

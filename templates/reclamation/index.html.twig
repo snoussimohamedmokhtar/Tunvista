@@ -67,7 +67,7 @@
                     url: url,
                     success: function(response) {
                         $('#rec_list').html(response.content); // Update search results HTML
-                        $('#pagination').html(response.pagination); // Update pagination HTML
+                        $('#pagination').html(response.pagination); // Update pagination HTMLs
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
@@ -78,6 +78,8 @@
         document.getElementById('search').addEventListener('input', search);
     </script>
     <!-- Courses End -->
+
+    <a href="{{ path('reclamation_statistics') }}" class="btn btn-primary">Reclamation statistics</a>
 {% endblock %}
 
 

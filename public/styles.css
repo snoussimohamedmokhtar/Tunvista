@@ -157,4 +157,15 @@ h2{
   50%,100% {
     bottom: 100%;
   }
+
+  
+}
+#chatbot-wrapper {
+  position: fixed;
+  bottom: 20px; /* Adjust vertical distance from bottom as needed */
+  right: 20px; /* Adjust horizontal distance from right as needed */
+  width: 300px; /* Adjust width as needed */
+  height: auto; /* Adjust height as needed */
+  max-height: 80vh; /* Limit the height */
+  overflow-y: auto; /* Enable vertical scrolling */
 }

@@ -7,6 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ReclamationType extends AbstractType
 {
@@ -14,7 +18,16 @@ class ReclamationType extends AbstractType
     {
         $builder
             ->add('iduser')
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'required' => true,
+                // Add custom validation constraint
+                'constraints' => [
+                    new Callback([
+                        'callback' => [$this, 'validateDescription'],
+                    ]),
+                ],
+            ])
             ->add('date')
             ->add('type', ChoiceType::class, [
                 'choices' => [
@@ -23,7 +36,12 @@ class ReclamationType extends AbstractType
                     'bug ou glitch' => 'bug ou glitch'
                 ],
                 'placeholder' => 'Choose a type',
-                'required' => true
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please select a type.',
+                    ]),
+                ],
             ])
             ->add('etat')
         ;
@@ -34,5 +52,16 @@ class ReclamationType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Reclamation::class,
         ]);
+    }
+
+
+    // Custom validation callback method
+    public function validateDescription($description, ExecutionContextInterface $context)
+    {
+        // Perform custom validation logic
+        if (preg_match('/\d/', $description)) {
+            $context->buildViolation('The description cannot contain numbers.')
+                ->addViolation();
+        }
     }
 }

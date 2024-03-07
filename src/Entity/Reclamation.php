@@ -31,6 +31,8 @@ class Reclamation
     #[ORM\Column(length: 255)]
     private ?string $etat = null;
 
+    
+
     #[ORM\OneToMany(targetEntity: Reponse::class, mappedBy: 'Reclamation')]
     private Collection $reponses;
 
@@ -103,6 +105,9 @@ class Reclamation
 
         return $this;
     }
+
+
+
 
     /**
      * @return Collection<int, Reponse>

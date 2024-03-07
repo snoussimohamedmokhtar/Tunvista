@@ -36,13 +36,37 @@
                     {{ include('reclamation/_form.html.twig') }}
 
                     <div class="col-12">
-                        <button class="btn btn-primary w-100 py-3" type="submit">Save</button>
+                        <button href="{{ path('app_front_home') }}" class="btn btn-primary w-100 py-3" type="submit">Save</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+
+<!-- Chatbot Button -->
+
+    <button id="chatbot-button" class="btn btn-primary rounded-circle position-fixed bottom-0 end-0 mb-5 me-5" style="z-index: 9999;">
+        <i class="fas fa-comment"></i>
+    </button>
+
+
+<!-- Chatbot Section (Initially Hidden) -->
+<div id="chatbot-section" class="position-fixed bottom-0 end-0 mb-5 me-5" style="z-index: 9998; display: none;">
+    <div id="chatbot-section" class="chatbot-container container py-3 bg-light rounded">
+        <div class="messages-container">
+            <!-- Chat messages will be displayed here -->
+        </div>
+        <div class="input-container mt-3">
+            <input type="text" class="form-control message-input" placeholder="Type your message...">
+            <button class="btn btn-primary send-button">Send</button>
+        </div>
+    </div>
+</div>
+
+
 
 
     <div class="container-xxl py-5">
@@ -97,11 +121,5 @@
     <!-- Contact End -->
 
 
-
-    
-
-
-
-
-    
 {% endblock %}
+
