@@ -18,11 +18,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 180, unique: true, nullable: false)]
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
+
+
 
     /**
      * @var string The hashed password
@@ -47,6 +49,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $githubId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mapsLink = null;
+
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $test = null;
+
 
     public function getId(): ?int
     {
@@ -208,4 +218,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getMapsLink(): ?string
+    {
+        return $this->mapsLink;
+    }
+
+    public function setMapsLink(string $mapsLink): static
+    {
+        $this->mapsLink = $mapsLink;
+
+        return $this;
+    }
+
+    public function getTest(): ?string
+    {
+        return $this->test;
+    }
+
+    public function setTest(?string $test): static
+    {
+        $this->test = $test;
+
+        return $this;
+    }
+
+
+
 }

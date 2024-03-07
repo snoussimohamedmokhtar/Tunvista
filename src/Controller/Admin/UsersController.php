@@ -53,6 +53,7 @@ class UsersController extends AbstractController
             'data' => json_encode($data), // Convertir en JSON pour JavaScript
         ]);
     }
+
     #[Route('/', name: 'index')]
     public function index(Request $request, UserRepository $userRepository): Response
     {
@@ -194,6 +195,7 @@ class UsersController extends AbstractController
     {
         // Récupérer l'utilisateur à éditer
         $user = $entityManager->getRepository(User::class)->find($id);
+        $mapsLink = $user->getMapsLink();
 
         // Vérifier si l'utilisateur existe
         if (!$user) {
@@ -217,6 +219,7 @@ class UsersController extends AbstractController
         return $this->renderForm('admin/users/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'maps_link' => $mapsLink,
         ]);
     }
     #[Route('/{id}', name: 'admin_users_delete', methods: ['POST'])]

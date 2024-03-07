@@ -80,6 +80,7 @@ class UserUpdateFormType extends AbstractType
                     ]),
                 ]
             ])
+            ->add('maps_link', null)
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'placeholder' => 'Choisir une région',
